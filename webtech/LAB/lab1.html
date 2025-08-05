@@ -1,0 +1,69 @@
+<!-- Write an HTML page that includes the following elements: -->
+<!-- A main heading (H1) with the text "My Favorite Foods" -->
+<!-- A paragraph below the heading with the attribute style that makes the text color green -->
+<!-- An unordered list (<ul>) of at least 4 of your favorite foods -->
+<!-- A table with 3 columns: Food Name, Category, and Calories. Add at least 3 rows of data. -->
+<!-- Insert an image related to food with the alt attribute describing the image. -->
+<!-- Add a caption below the image using a paragraph tag. -->
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff9e;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div style="align-items: center;">
+        <h1 style="font-weight: 100;">My Favourite Foods !</h1>
+        <p style="color: green;">This is list of mine favorite Foods</p>
+        <ul style="margin-left: 20px; display: flex; gap: 50px; padding: 0;">
+            <li>Bhindi</li>
+            <li>Paneer</li>
+            <li>Cereals</li>
+        </ul>
+    </div>
+    <table border="1" padding="10" cellspacing="0" style="width: 50%; text-align: center; margin-top: 20px;"> 
+        <tr style="background-color: grey; color: white ; font-weight: 100;">
+            <th>Food Name</th>
+            <th>Category</th>
+            <th>Calories</th>
+        </tr>
+        <tr>
+            <td>Bhindi</td>
+            <td>Veg</td>
+            <td>120Cal</td>
+        </tr>
+        <tr>
+            <td>Paneer</td>
+            <td>Veg</td>
+            <td>130Cal</td>
+        </tr>
+        <tr>
+            <td>Cereals</td>
+            <td>Veg</td>
+            <td>150Cal</td>
+        </tr>
+    </table>
+    <h1 style="font-weight: 200;">Food Description of Image !</h1>
+    <div style="display: flex;">
+        <div style="display: flex; flex-direction: column;">
+            <img style="width: 250px; height: 200px; " src="https://imgs.search.brave.com/WnMVl-SqULJTeZXzVEn01VGM9FY1HnjDOoDIHWByCpg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy82/LzY0L0Zvb2RzXyhj/cm9wcGVkKS5qcGc" alt="Food Image"/>
+            <p>This is a delicious food image. It looks very appetizing and is a great representation of my favorite foods.</p>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <img style="object-fit:cover; width: 250px; height: 200px; " src="https://imgs.search.brave.com/W4Kumw0ScfmeVM75-KTyvGmp5FA-7QcQBBqjoRWjDMw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dWNzZmhlYWx0aC5v/cmcvLS9tZWRpYS9w/cm9qZWN0L3Vjc2Yv/dWNzZi1oZWFsdGgv/ZWR1Y2F0aW9uL2hl/cm8vdG9wLXRlbi1m/b29kcy1mb3ItaGVh/bHRoLTJ4LmpwZz9o/PTExMTImaWFyPTAm/dz0yODgwJnJldj04/OTBlMDAxNmQ5ODI0/ZDU3ODlkNGVhYTYx/MGNlNjA2ZSZoYXNo/PUZERjI2QjlDMzc4/RTQ0MjQ1QTcyNTc4/MEJCRkQ1Qjk1" alt="Food Image"/>
+            <p>This is a delicious food image. It looks very appetizing and is a great representation of my favorite foods.</p>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <img style="height: 200px; object-fit: cover; width: 250px; " src="https://imgs.search.brave.com/YypFLWXe_AZ12qHUyXEHBHPDZr4U0K6deiQGO77QNOc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb21m/NW9pbzZxcmNyLmNs/b3VkZnJvbnQubmV0/L21lZGlhbGlicmFy/eS8xNjc3Ny9jb252/ZXJzaW9ucy9wOC1o/ZWFsdGh5Zm9vZHMt/aGgwNzI1LWdpMTQ4/ODg4MzE5MS10aHVt/Yi5qcGc" alt="Food Image"/>
+            <p>This is a delicious food image. It looks very appetizing and is a great representation of my favorite foods.</p>
+        </div>
+    </div>
+</body>
+</html>
