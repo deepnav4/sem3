@@ -1,0 +1,554 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 37
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> clear
+mysql> CREATE DATABASE NAV
+    -> CREATE DATABASE NAV;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREATE DATABASE NAV' at line 2
+mysql> CREATE DATABASE NAV;
+Query OK, 1 row affected (0.40 sec)
+
+mysql> USE NAV;
+Database changed
+mysql> CREATE TABLE Salesman
+    -> ^C
+mysql> CREATE TABLE Salesman;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE Salesman;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE Salesman(salesman_id INT,name VARCHAR(50),city VARCHAR(50),commission FLOAT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> CREATE TABLE Salesman(salesman_id INT,name VARCHAR(50),city VARCHAR(50),commission FLOAT;^C
+mysql> ^C
+mysql> CREATE TABLE Salesman (
+    ->     salesman_id INT,
+    ->     name VARCHAR(50),
+    ->     city VARCHAR(50),
+    ->     commission FLOAT
+    -> );
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> INSERT INTO Salesman (salesman_id,name,city,commission) VALUES
+    -> (5001,"James Hoog","New York",0.15);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> (5001,"James Hoog","New York",0.15);^C
+mysql> ^C
+mysql> INSERT INTO Salesman (salesman_id,name,city,commission) VALUES
+    -> INSERT INTO Salesman (salesman_id,name,city,commission) VALUES^X^C
+mysql> ^C
+mysql> ^C
+mysql> INSERT INTO Salesman (salesman_id,name,city,commission) VALUES
+    -> ^Z^Coog","New York",0.15),
+mysql> ^C
+mysql> INSERT INTO Salesman (salesman_id,name,city,commission) VALUES
+    -> (5002,"James Hoog","Paris",0.13),
+    -> (5005,"Pit Alex","London",0.11),
+    -> (5006,"Mc Lyon","Paris",0.14),
+    -> (5007,"Paul Adam","Rome",0.13),
+    -> (5003,"Lauson Hen","San Jose",0.12);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Salesman
+    -> ^C
+mysql> ^C
+mysql> SELECT * FROM Salesman;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James Hoog | New York |       0.15 |
+|        5002 | James Hoog | Paris    |       0.13 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
++-------------+------------+----------+------------+
+6 rows in set (0.03 sec)
+
+mysql> SELECT "This is SQL Exercise,Practice and Solution" AS Message;
++--------------------------------------------+
+| Message                                    |
++--------------------------------------------+
+| This is SQL Exercise,Practice and Solution |
++--------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT 10 AS num1,20 as num2,30 as num3;
++------+------+------+
+| num1 | num2 | num3 |
++------+------+------+
+|   10 |   20 |   30 |
++------+------+------+
+1 row in set (0.01 sec)
+
+mysql> SELECT 10+15 AS Sum;
++-----+
+| Sum |
++-----+
+|  25 |
++-----+
+1 row in set (0.01 sec)
+
+mysql> SELECT 10*(2+5) AS exp[;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[' at line 1
+mysql> SELECT 10*(2+5) AS exp;
++-----+
+| exp |
++-----+
+|  70 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Salesman WHERE COLUMN  = name,commission;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COLUMN  = name,commission' at line 1
+mysql> SELECT name,commission FROM Salesman;
++------------+------------+
+| name       | commission |
++------------+------------+
+| James Hoog |       0.15 |
+| James Hoog |       0.13 |
+| Pit Alex   |       0.11 |
+| Mc Lyon    |       0.14 |
+| Paul Adam  |       0.13 |
+| Lauson Hen |       0.12 |
++------------+------------+
+6 rows in set (0.12 sec)
+
+mysql> CREATE TABLE Orders (
+    ->     order_no INT,
+    ->     purchase_amount FLOAT,
+    ->     order_date DATE,
+    ->     salesman_id INT
+    -> );
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> INSERT INTO Orders (order_no,purchase_amount,order_date,salesman_id) VALUES
+    -> (^C
+mysql> ^C
+mysql> DROP TABLE Orders
+    -> ^C
+mysql> ^C
+mysql> DROP TABLE Orders;
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> CREATE TABLE Orders (
+    ->     ord_no INT,
+    ->     purch_amt FLOAT,
+    ->     ord_date DATE,
+    ->     customer_id INT,
+    ->     salesman_id INT
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO Orders (ord_no, purch_amt, ord_date, customer_id, salesman_id) VALUES
+    -> (70001, 150.5,  '2012-10-05', 3005, 5002),
+    -> (70009, 270.65, '2012-09-10', 3001, 5005),
+    -> (70002, 65.26,  '2012-10-05', 3002, 5001),
+    -> (70004, 110.5,  '2012-08-17', 3009, 5003),
+    -> (70007, 948.5,  '2012-09-10', 3005, 5002),
+    -> (70005, 2400.6, '2012-07-27', 3007, 5001),
+    -> (70008, 5760,   '2012-09-10', 3002, 5001);
+Query OK, 7 rows affected (0.08 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Orders;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |     150.5 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |     110.5 | 2012-08-17 |        3009 |        5003 |
+|  70007 |     948.5 | 2012-09-10 |        3005 |        5002 |
+|  70005 |    2400.6 | 2012-07-27 |        3007 |        5001 |
+|  70008 |      5760 | 2012-09-10 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT ord_date,salesman_id,ord_no,purch_amt FROM Orders;
++------------+-------------+--------+-----------+
+| ord_date   | salesman_id | ord_no | purch_amt |
++------------+-------------+--------+-----------+
+| 2012-10-05 |        5002 |  70001 |     150.5 |
+| 2012-09-10 |        5005 |  70009 |    270.65 |
+| 2012-10-05 |        5001 |  70002 |     65.26 |
+| 2012-08-17 |        5003 |  70004 |     110.5 |
+| 2012-09-10 |        5002 |  70007 |     948.5 |
+| 2012-07-27 |        5001 |  70005 |    2400.6 |
+| 2012-09-10 |        5001 |  70008 |      5760 |
++------------+-------------+--------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT salesman_id
+    -> FROM Orders;
++-------------+
+| salesman_id |
++-------------+
+|        5002 |
+|        5005 |
+|        5001 |
+|        5003 |
++-------------+
+4 rows in set (0.03 sec)
+
+mysql> SELECT DISTINCT salesman_id FROM orders;
++-------------+
+| salesman_id |
++-------------+
+|        5002 |
+|        5005 |
+|        5001 |
+|        5003 |
++-------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM Salesman;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James Hoog | New York |       0.15 |
+|        5002 | James Hoog | Paris    |       0.13 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
++-------------+------------+----------+------------+
+6 rows in set (0.02 sec)
+
+mysql> select name,city from Salesman WHERE city = "Paris";
++------------+-------+
+| name       | city  |
++------------+-------+
+| James Hoog | Paris |
+| Mc Lyon    | Paris |
++------------+-------+
+2 rows in set (0.04 sec)
+
+mysql> CREATE TABLE customer (
+    ->     customer_id INT,
+    ->     cust_name VARCHAR(50),
+    ->     city VARCHAR(50),
+    ->     grade INT,
+    ->     salesman_id INT
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> INSERT INTO customer (customer_id, cust_name, city, grade, salesman_id) VALUES
+    -> (3002, 'Nick Rimando', 'New York', 100, 5001),
+    -> (3007, 'Brad Davis', 'New York', 200, 5001),
+    -> (3005, 'Graham Zusi', 'California', 200, 5002),
+    -> (3008, 'Julian Green', 'London', 300, 5002),
+    -> (3004, 'Fabian Johnson', 'Paris', 300, 5006),
+    -> (3009, 'Geoff Cameron', 'Berlin', 100, 5003),
+    -> (3003, 'Jozy Altidor', 'Moscow', 200, 5007),
+    -> (3001, 'Brad Guzan', 'London', NULL, 5005);
+Query OK, 8 rows affected (0.07 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM customer;
++-------------+----------------+------------+-------+-------------+
+| customer_id | cust_name      | city       | grade | salesman_id |
++-------------+----------------+------------+-------+-------------+
+|        3002 | Nick Rimando   | New York   |   100 |        5001 |
+|        3007 | Brad Davis     | New York   |   200 |        5001 |
+|        3005 | Graham Zusi    | California |   200 |        5002 |
+|        3008 | Julian Green   | London     |   300 |        5002 |
+|        3004 | Fabian Johnson | Paris      |   300 |        5006 |
+|        3009 | Geoff Cameron  | Berlin     |   100 |        5003 |
+|        3003 | Jozy Altidor   | Moscow     |   200 |        5007 |
+|        3001 | Brad Guzan     | London     |  NULL |        5005 |
++-------------+----------------+------------+-------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM salesman;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James Hoog | New York |       0.15 |
+|        5002 | James Hoog | Paris    |       0.13 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
++-------------+------------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from orders;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |     150.5 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |     110.5 | 2012-08-17 |        3009 |        5003 |
+|  70007 |     948.5 | 2012-09-10 |        3005 |        5002 |
+|  70005 |    2400.6 | 2012-07-27 |        3007 |        5001 |
+|  70008 |      5760 | 2012-09-10 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT * from customers WHERE grade==200;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '==200' at line 1
+mysql> SELECT * from customers WHERE grade=200;
+ERROR 1146 (42S02): Table 'nav.customers' doesn't exist
+mysql> SELECT * from Customers WHERE grade=200;
+ERROR 1146 (42S02): Table 'nav.customers' doesn't exist
+mysql> (3002, 'Nick Rimando', 'New York', 100, 5001),^C
+mysql> ^C
+mysql> SELECT * FROM Customers;
+ERROR 1146 (42S02): Table 'nav.customers' doesn't exist
+mysql> SELECT * from Customer WHERE grade=200;
++-------------+--------------+------------+-------+-------------+
+| customer_id | cust_name    | city       | grade | salesman_id |
++-------------+--------------+------------+-------+-------------+
+|        3007 | Brad Davis   | New York   |   200 |        5001 |
+|        3005 | Graham Zusi  | California |   200 |        5002 |
+|        3003 | Jozy Altidor | Moscow     |   200 |        5007 |
++-------------+--------------+------------+-------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT ord_no,ord_date,purch_amt WHERE salesman_id = 5001;
+ERROR 1054 (42S22): Unknown column 'ord_no' in 'field list'
+mysql> SELECT ord_no,ord_date,purch_amt FROM orders WHERE salesman_id = 5001;
++--------+------------+-----------+
+| ord_no | ord_date   | purch_amt |
++--------+------------+-----------+
+|  70002 | 2012-10-05 |     65.26 |
+|  70005 | 2012-07-27 |    2400.6 |
+|  70008 | 2012-09-10 |      5760 |
++--------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE prizes (
+    ->     year INT,
+    ->     subject VARCHAR(50),
+    ->     winner VARCHAR(100),
+    ->     country VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> INSERT INTO prizes (year, subject, winner, country) VALUES
+    -> (1970, 'Physics', 'Hannes Alfven', 'Sweden'),
+    -> (1970, 'Physics', 'Louis Neel', 'France'),
+    -> (1970, 'Chemistry', 'Luis Federico Leloir', 'France'),
+    -> (1970, 'Physiology', 'Ulf von Euler', 'Sweden'),
+    -> (1970, 'Physiology', 'Bernard Katz', 'Germany'),
+    -> (1970, 'Literature', 'Aleksandr Solzhenitsyn', 'Russia'),
+    -> (1970, 'Economics', 'Paul Samuelson', 'USA'),
+    -> (1970, 'Physiology', 'Julius Axelrod', 'USA'),
+    -> (1971, 'Physics', 'Dennis Gabor', 'Hungary');
+Query OK, 9 rows affected (0.04 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> Select * from prizes;
++------+------------+------------------------+---------+
+| year | subject    | winner                 | country |
++------+------------+------------------------+---------+
+| 1970 | Physics    | Hannes Alfven          | Sweden  |
+| 1970 | Physics    | Louis Neel             | France  |
+| 1970 | Chemistry  | Luis Federico Leloir   | France  |
+| 1970 | Physiology | Ulf von Euler          | Sweden  |
+| 1970 | Physiology | Bernard Katz           | Germany |
+| 1970 | Literature | Aleksandr Solzhenitsyn | Russia  |
+| 1970 | Economics  | Paul Samuelson         | USA     |
+| 1970 | Physiology | Julius Axelrod         | USA     |
+| 1971 | Physics    | Dennis Gabor           | Hungary |
++------+------------+------------------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT winner FROM prizes WHERE year=1971;
++--------------+
+| winner       |
++--------------+
+| Dennis Gabor |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT year,subject,winner,country WHERE year>=1965 AND year<=1975;
+ERROR 1054 (42S22): Unknown column 'year' in 'field list'
+mysql> SELECT year,subject,winner,country FROM prizes WHERE year>=1965 AND year<=1975;
++------+------------+------------------------+---------+
+| year | subject    | winner                 | country |
++------+------------+------------------------+---------+
+| 1970 | Physics    | Hannes Alfven          | Sweden  |
+| 1970 | Physics    | Louis Neel             | France  |
+| 1970 | Chemistry  | Luis Federico Leloir   | France  |
+| 1970 | Physiology | Ulf von Euler          | Sweden  |
+| 1970 | Physiology | Bernard Katz           | Germany |
+| 1970 | Literature | Aleksandr Solzhenitsyn | Russia  |
+| 1970 | Economics  | Paul Samuelson         | USA     |
+| 1970 | Physiology | Julius Axelrod         | USA     |
+| 1971 | Physics    | Dennis Gabor           | Hungary |
++------+------------+------------------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> CREATE TABLE parts (
+    ->     pro_id INT,
+    ->     pro_name VARCHAR(50),
+    ->     pro_price INT,
+    ->     pro_com INT
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> INSERT INTO parts (pro_id, pro_name, pro_price, pro_com) VALUES
+    -> (101, 'Mother Board', 3200, 15),
+    -> (102, 'Key Board', 450, 16),
+    -> (103, 'ZIP drive', 250, 14),
+    -> (104, 'Speaker', 550, 16),
+    -> (105, 'Monitor', 5000, 11),
+    -> (106, 'DVD drive', 900, 12),
+    -> (107, 'CD drive', 800, 12),
+    -> (108, 'Printer', 2600, 13),
+    -> (109, 'Refill cartridge', 350, 13),
+    -> (110, 'Mouse', 250, 12);
+Query OK, 10 rows affected (0.04 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM parts;
++--------+------------------+-----------+---------+
+| pro_id | pro_name         | pro_price | pro_com |
++--------+------------------+-----------+---------+
+|    101 | Mother Board     |      3200 |      15 |
+|    102 | Key Board        |       450 |      16 |
+|    103 | ZIP drive        |       250 |      14 |
+|    104 | Speaker          |       550 |      16 |
+|    105 | Monitor          |      5000 |      11 |
+|    106 | DVD drive        |       900 |      12 |
+|    107 | CD drive         |       800 |      12 |
+|    108 | Printer          |      2600 |      13 |
+|    109 | Refill cartridge |       350 |      13 |
+|    110 | Mouse            |       250 |      12 |
++--------+------------------+-----------+---------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT pro_name,pro_price FROM parts WHERE pro_price>=250 ORDER BY pro_price DESC , pro_name ASC;
++------------------+-----------+
+| pro_name         | pro_price |
++------------------+-----------+
+| Monitor          |      5000 |
+| Mother Board     |      3200 |
+| Printer          |      2600 |
+| DVD drive        |       900 |
+| CD drive         |       800 |
+| Speaker          |       550 |
+| Key Board        |       450 |
+| Refill cartridge |       350 |
+| Mouse            |       250 |
+| ZIP drive        |       250 |
++------------------+-----------+
+10 rows in set (0.02 sec)
+
+mysql> SELECT * FROM orders;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |     150.5 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |     110.5 | 2012-08-17 |        3009 |        5003 |
+|  70007 |     948.5 | 2012-09-10 |        3005 |        5002 |
+|  70005 |    2400.6 | 2012-07-27 |        3007 |        5001 |
+|  70008 |      5760 | 2012-09-10 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT * FROM customers;
+ERROR 1146 (42S02): Table 'nav.customers' doesn't exist
+mysql> SELECT * FROM customer;
++-------------+----------------+------------+-------+-------------+
+| customer_id | cust_name      | city       | grade | salesman_id |
++-------------+----------------+------------+-------+-------------+
+|        3002 | Nick Rimando   | New York   |   100 |        5001 |
+|        3007 | Brad Davis     | New York   |   200 |        5001 |
+|        3005 | Graham Zusi    | California |   200 |        5002 |
+|        3008 | Julian Green   | London     |   300 |        5002 |
+|        3004 | Fabian Johnson | Paris      |   300 |        5006 |
+|        3009 | Geoff Cameron  | Berlin     |   100 |        5003 |
+|        3003 | Jozy Altidor   | Moscow     |   200 |        5007 |
+|        3001 | Brad Guzan     | London     |  NULL |        5005 |
++-------------+----------------+------------+-------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM prizes;
++------+------------+------------------------+---------+
+| year | subject    | winner                 | country |
++------+------------+------------------------+---------+
+| 1970 | Physics    | Hannes Alfven          | Sweden  |
+| 1970 | Physics    | Louis Neel             | France  |
+| 1970 | Chemistry  | Luis Federico Leloir   | France  |
+| 1970 | Physiology | Ulf von Euler          | Sweden  |
+| 1970 | Physiology | Bernard Katz           | Germany |
+| 1970 | Literature | Aleksandr Solzhenitsyn | Russia  |
+| 1970 | Economics  | Paul Samuelson         | USA     |
+| 1970 | Physiology | Julius Axelrod         | USA     |
+| 1971 | Physics    | Dennis Gabor           | Hungary |
++------+------------+------------------------+---------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * TABLW:
+    -> ^C
+mysql> ^C
+mysql> SELECT * TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE' at line 1
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_nav |
++---------------+
+| customer      |
+| orders        |
+| parts         |
+| prizes        |
+| salesman      |
++---------------+
+5 rows in set (0.02 sec)
+
+mysql> SELECT pro_name,pro_price FROM parts WHERE pro_price>=250 ORDER BY pro_price DESC;
++------------------+-----------+
+| pro_name         | pro_price |
++------------------+-----------+
+| Monitor          |      5000 |
+| Mother Board     |      3200 |
+| Printer          |      2600 |
+| DVD drive        |       900 |
+| CD drive         |       800 |
+| Speaker          |       550 |
+| Key Board        |       450 |
+| Refill cartridge |       350 |
+| ZIP drive        |       250 |
+| Mouse            |       250 |
++------------------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT * FROM prizes;
++------+------------+------------------------+---------+
+| year | subject    | winner                 | country |
++------+------------+------------------------+---------+
+| 1970 | Physics    | Hannes Alfven          | Sweden  |
+| 1970 | Physics    | Louis Neel             | France  |
+| 1970 | Chemistry  | Luis Federico Leloir   | France  |
+| 1970 | Physiology | Ulf von Euler          | Sweden  |
+| 1970 | Physiology | Bernard Katz           | Germany |
+| 1970 | Literature | Aleksandr Solzhenitsyn | Russia  |
+| 1970 | Economics  | Paul Samuelson         | USA     |
+| 1970 | Physiology | Julius Axelrod         | USA     |
+| 1971 | Physics    | Dennis Gabor           | Hungary |
++------+------------+------------------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT year,subject,winner,country FROM prizes WHERE subject = "Chemistery" AND YEAR>=1965 AND YEAR<=1975;
+Empty set (0.00 sec)
+
+mysql> ^A^A^C
+mysql> SHOW TABLES;
