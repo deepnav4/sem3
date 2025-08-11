@@ -1,0 +1,197 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Gautam Garg}
+\lhead{OOP Assignment 2}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+
+\begin{document}
+
+% ---------- Custom Title Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \bfseries Object Oriented Programming Lab \par}
+    \vspace{0.5cm}
+    {\LARGE \bfseries Assignment 2 \par}
+    \vspace{2.5cm}
+    {\Large Submitted by: \par}
+    \vspace{0.3cm}
+    {\large \textbf{Gautam Garg} \par}
+    \vspace{0.3cm}
+    {\large \textbf{6th August 2025} \par}
+    \vspace{0.3cm}
+    Roll No: 24124035 \\
+    Group: 2 \\
+    Branch: Information Technology \\
+    Year: 2nd Year
+    \vfill
+\end{titlepage}
+
+
+% ---------- Start of Questions ----------
+% Paste your \section*{1. ...}, \subsection*{Code}, etc. from here onward
+
+
+
+%----------------------------------------
+\section*{1. Write a function that takes two integers by reference and returns the larger one. Also, update both variables by adding 1.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include <bits/stdc++.h>
+using namespace std;
+
+pair<int,int> fxn1(int &a,int &b){
+    a++;
+    b++;
+    return {a,b}; 
+}
+
+int main1(){
+    int a = 10;
+    int b = 20;
+    pair<int,int>ans = fxn1(a,b);
+    cout<<a<<" "<<b;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+11 21
+\end{lstlisting}
+
+%----------------------------------------
+\section*{2. Write a function that takes multiple variables by reference and updates their values based on user input.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+void fxn2(int &a, int &b, int &c) {
+    cout << "Enter three integers: ";
+    cin >> a >> b >> c;
+}
+
+void main2() {
+    int a, b, c;
+    fxn2(a, b, c);
+    cout << "Updated values: " << a << " " << b << " " << c << endl;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter three integers: 2 3 4
+Updated values: 2 3 4
+\end{lstlisting}
+
+
+\section*{3.  Write a function that adds a number to a vector passed by reference.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+void fxn3(vector<int> &v, int num) {
+    v.push_back(num);
+}
+
+int main3(){
+    vector<int>v = {1,2,3};
+    int num;
+    cout<<"Enter Number to push into vector : ";
+    cin>>num;
+    cout<<"Before Pushing Number : ";
+    for(auto i : v) cout<<i<<" ";
+    cout<<endl;
+    fxn3(v,num);
+    cout<<"After pushing Number : ";
+    for(auto i : v) cout<<i<<" ";
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter Number to push into vector : 4
+Before Pushing Number : 1 2 3 
+After pushing Number : 1 2 3 4
+\end{lstlisting}
+\section*{4. Function to calculate quotient and remainder}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+void fxn4(int a, int b, int &quotient, int &remainder) {
+    if (b == 0) {
+        cout << "Error: Division by zero is undefined." << endl;
+        quotient = 0;
+        remainder = 0;
+        return;
+    }
+    quotient = a / b;
+    remainder = a % b;
+}
+
+int main4() {
+    int num1 = 20, num2 = 6;
+    int q, r;
+    fxn4(num1, num2, q, r);
+    cout << "Quotient: " << q << endl;
+    cout << "Remainder: " << r << endl;
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Quotient: 3
+Remainder: 2
+\end{lstlisting}
+\section*{5. Write an inline function that calculates the power of a number with a default exponent of 2 (square). For example, power(3) returns 9, and power(2, 3) returns 8.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+inline int fxn5(int num,int exponenet = 2){
+    return pow(num,exponenet);
+}
+
+int main5(){
+    cout<<fxn5(3)<<endl;
+    cout<<fxn5(2,3);
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+9
+8
+\end{lstlisting}
+\end{document}

@@ -110,6 +110,7 @@ int main(){
     cout<<"Enter the numeber of the objects : ";
     cin>>n;
     vector<int>arr(n);
+    // take input as color please verify also
     cout<<"Enter the objects color 0(Red) , 1(White) and 2(Blue) only : \n";
     for(int i=0; i<n; i++){
         cout<<"Enter " <<i+1 <<" th object out of "<<n <<" : ";
@@ -120,11 +121,11 @@ int main(){
         }
     }
     bubbleSort(arr);
-    selectionSort(arr);
-    insertionSort(arr);
-    countAndArrangeInArray(arr);
-    dnfAlgo(arr);
-    vector<int>mergeSortAns = mergeSort(arr,0,arr.size()-1);
+    // selectionSort(arr);
+    // insertionSort(arr);
+    // countAndArrangeInArray(arr);
+    // dnfAlgo(arr);
+    // vector<int>mergeSortAns = mergeSort(arr,0,arr.size()-1);
     cout<<"Your sorted array of object is : \n";
     for(auto i : arr) cout<<i <<" ";
 }
