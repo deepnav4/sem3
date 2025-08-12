@@ -1,0 +1,448 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{navdeep Singh}
+\lhead{OOP Assignment 3}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+
+\begin{document}
+
+% ---------- Custom Title Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \bfseries Object Oriented Programming Lab \par}
+    \vspace{0.5cm}
+    {\LARGE \bfseries Assignment 3 \par}
+    \vspace{2.5cm}
+    {\Large Submitted by: \par}
+    \vspace{0.3cm}
+    {\large \textbf{Navdeep Singh} \par}
+    \vspace{0.3cm}
+    {\large \textbf{12th August 2025} \par}
+    \vspace{0.3cm}
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year
+    \vfill
+\end{titlepage}
+
+
+% ---------- Start of Questions ----------
+% Paste your \section*{1. ...}, \subsection*{Code}, etc. from here onward
+
+
+
+%----------------------------------------
+\section*{Practice Question to parctice Structures in C++ (Make a Simple struct Student with name ROll No and Marks take input from user and display it )}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Student{
+    private :
+    string name;
+    int rollNo;
+    float marks;
+
+    public:
+    void takeInputs(Student &s1){
+        cout<<"Inside take inputs Functions !!\n";
+        cout<<"Enter Name of Student : ";
+        getline(cin,s1.name);
+        cout<<"Enter Roll No of Student : ";
+        cin>>s1.rollNo;
+        cout<<"Enter Marks of Student : ";
+        cin>>s1.marks;
+    }
+
+    void display(Student &s1){
+        cout<<"Inside Diaplay Function !!\n";
+        cout<<"Name of the Student : " <<s1.name <<endl; 
+        cout<<"Roll No of the Student : " <<s1.rollNo <<endl;
+        cout<<"Marks of the Student : " <<s1.marks <<endl;
+    }
+};
+
+int main(){
+    Student s1;
+    s1.takeInputs(s1);
+    s1.display(s1);
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Inside take inputs Functions !!
+Enter Name of Student : Navdeep Singh
+Enter Roll No of Student : 24124073
+Enter Marks of Student : 95
+Inside Diaplay Function !!
+Name of the Student : Navdeep Singh
+Roll No of the Student : 24124073
+Marks of the Student : 95
+\end{lstlisting}
+
+%----------------------------------------
+\section*{1. Write overloaded versions of the function multiply() to: Multiply two integers, Multiply a float and an integer (any order), Multiply two doubles.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+float multiply(int a,int b){
+    return a*b;
+}
+
+float multiply(int a,float b){
+    return a*b;
+}
+
+float multiply(float a,float b){
+    return a*b;
+}
+
+int main1(){
+    cout<<multiply(3.5,3) <<endl;
+    cout<<multiply(3,3) <<endl;
+    cout<<multiply(3.5f,3.5f) <<endl; // By default it is considered as double 
+}
+
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+9
+9
+12.25
+\end{lstlisting}
+
+
+\section*{2. Write overloaded version of the function compare () to, compare two integers, compare two strings, and compare two characters.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+void compare(int a,int b){
+    if(a>b) cout<<a <<" is Greater than "<<b <<endl;
+    else if(a<b) cout<<b<<" is Greater than "<<a <<endl;
+    else cout<<"Both " <<a <<" and " <<b <<" are equal"<<endl;
+}
+
+void compare(char a,char b){
+    if(a>b) cout<<a <<" is Greater than "<<b <<endl;
+    else if(a<b) cout<<b<<" is Greater than "<<a <<endl;
+    else cout<<"Both " <<a <<" and " <<b <<" are equal" <<endl;
+}
+
+void compare(string a,string b){
+    if(a>b) cout<<a <<" is Greater than "<<b <<endl;
+    else if(a<b) cout<<b<<" is Greater than "<<a <<endl;
+    else cout<<"Both " <<a <<" and " <<b <<" are equal" <<endl;
+}
+
+int main2(){
+    compare('a','b');
+    compare(1,2);
+    compare("Hello","World");
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+b is Greater than a
+2 is Greater than 1
+World is Greater than Hello
+\end{lstlisting}
+\section*{3. Write overloaded version of the function reverse () to, reverse an integer, reverse a string, and reverse a float.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+void reverse(int a){
+    int reversedNum = 0;
+    while(a){
+        int rem = a%10;
+        reversedNum = reversedNum * 10 + rem;
+        a /= 10;
+    }
+    cout<<reversedNum<<endl;
+}
+
+void reverse(string s){
+    int start = 0;
+    int end = s.size()-1;
+    while(start<=end){
+        swap(s[start],s[end]);
+        start++;
+        end--;
+    }
+    cout<<s<<endl;
+}
+
+void reverse(float a){
+    // logic of reversing float number
+}
+
+
+int main3(){
+    reverse(201);
+    reverse("Navdeep");
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+102
+peedvaN
+\end{lstlisting}
+\section*{4. Define a struct Book with members char title [50], char author [50], and float price. Create three Book variables using designated initialization and display their details.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+struct Book{
+    char title[50];
+    char author[50];
+    float price;
+
+    void display(Book &b) {
+        cout << "Book Details:" << endl;
+        cout << "Title: " << b.title << endl;
+        cout << "Author: " << b.author << endl;
+        cout << "Price: " << b.price << endl;
+    }
+};
+
+int main4(){
+    Book b1 = {"Metamorphosis","Franz Kafka",106};
+    Book b2 = {"White Nights","Fyodor Dostoevsky",89.5};
+    Book b3 = {"To Kill a Mockingbird","Harper Lee",120.0};
+
+    b1.display(b1);
+    b2.display(b2);
+    b3.display(b3);
+
+    return 0;
+}
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Book Details:
+Title: Metamorphosis
+Author: Franz Kafka
+Price: 106
+Book Details:
+Title: White Nights
+Author: Fyodor Dostoevsky
+Price: 89.5
+Book Details:
+Title: To Kill a Mockingbird
+Author: Harper Lee
+Price: 120
+\end{lstlisting}
+
+
+
+\section*{5. Define a struct named Employee with int empId, char name [50], and float salary. Write a function printEmployee(Employee) to print employee details. Call this function from main() after taking input from the user.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+struct Employee{
+    int empId;
+    char name[50];
+    float salary;
+
+    void printEmployee(Employee emp){
+        cout << "Employee ID: " << emp.empId << endl;
+        cout << "Name: " << emp.name << endl;
+        cout << "Salary: " << emp.salary << endl;
+    }
+};
+
+
+int main5(){
+    Employee emp;
+    cout << "Enter Employee ID: ";
+    cin >> emp.empId;
+    cout << "Enter Name: ";
+    cin.ignore(); 
+    cin.getline(emp.name,50); 
+    cout << "Enter Salary: ";
+    cin >> emp.salary;
+    emp.printEmployee(emp);
+    return 0;
+}
+
+
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter Employee ID: 45
+Enter Name: Navdeep Singh
+Enter Salary: 450000
+Employee ID: 45
+Name: Navdeep Singh
+Salary: 450000
+\end{lstlisting}
+\section*{6. Define a struct Product with int productId, char name [50], float price. Write a program to input details of n products and display the product with the highest price.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+struct Product{
+    int productId;
+    char name[50];
+    float price;
+};
+
+int main6(){
+    int n;
+    cout<<"Enter Number of Products : ";
+    cin>>n;
+    vector<Product>p(n);
+
+    for(int i=0; i<n; i++){
+        cout<<"Enter details for product "<<i+1<<":"<<endl;
+        cout<<"Enter Product ID: ";
+        cin>>p[i].productId;
+        cout<<"Enter Product Name: ";
+        cin>>p[i].name;
+        cout<<"Enter Product Price: ";
+        cin>>p[i].price;
+    }
+
+    Product maxProduct = p[0];
+    for(int i=1; i<n; i++){
+        if(p[i].price > maxProduct.price){
+            maxProduct = p[i];
+        }
+    }
+
+    cout<<"Product with Highest Price: "<<endl;
+    cout<<"ID: "<<maxProduct.productId<<endl;
+    cout<<"Name: "<<maxProduct.name<<endl;
+    cout<<"Price: "<<maxProduct.price<<endl;
+}
+
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter Number of Products : 3
+Enter details for product 1:
+Enter Product ID: 34
+Enter Product Name: ProductA 
+Enter Product Price: 34
+Enter details for product 2:
+Enter Product ID: 56
+Enter Product Name: ProductB
+Enter Product Price: 50
+Enter details for product 3:
+Enter Product ID: 78
+Enter Product Name: ProductC
+Enter Product Price: 45
+Product with Highest Price: 
+ID: 56
+Name: ProductB
+Price: 50
+\end{lstlisting}
+\section*{7. Define two structures Date with day, month, year, and Person with name, Date dob (date of birth). Write a program to input and display a person's name and date of birth.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+struct Date{
+    int day;
+    int month;
+    int year;
+};
+
+struct Person{
+    char name[50];
+    Date dob;
+};
+
+int main7(){
+    Person p;
+    cout << "Enter Name: ";
+    cin.getline(p.name,50);
+    cout << "Enter Date of Birth (dd mm yyyy): ";
+    cin >> p.dob.day >> p.dob.month >> p.dob.year;
+
+    cout << "Name: " << p.name << endl;
+    cout << "Date of Birth: " << p.dob.day << "/" << p.dob.month << "/" << p.dob.year << endl;
+
+    return 0;
+}
+
+
+
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter Name: John Doe
+Enter Date of Birth (dd mm yyyy): 31 08 2006
+Name: John Doe
+Date of Birth: 31/8/2006
+\end{lstlisting}
+
+
+
+\section*{ Calling all main1 , main2 .. etc from main }
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+int main(){
+    main1();
+    main2();
+    main3();
+    main4();
+    main5();
+    main6();
+    main7();
+}
+
+\end{lstlisting}
+
+
+\end{document}
