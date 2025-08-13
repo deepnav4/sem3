@@ -1,0 +1,521 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 40
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE NAV
+Database changed
+mysql> CREATE TABLE Sales(
+    -> ord_no INT,
+    -> purch_amt FLOAT,
+    -> ord_date DATE,
+    -> customer_id INT,
+    -> salesman_id INT);
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> INSERT INTO orders (ord_no, purch_amt, ord_date, customer_id, salesman_id) VALUES
+    -> (70001, 150.50, '2012-10-05', 3005, 5002),
+    -> (70009, 270.65, '2012-09-10', 3001, 5005),
+    -> (70002, 65.26, '2012-10-05', 3002, 5001),
+    -> (70004, 110.50, '2012-08-17', 3009, 5003),
+    -> (70007, 948.50, '2012-09-10', 3005, 5002),
+    -> (70005, 2400.60, '2012-07-27', 3007, 5001),
+    -> (70008, 5760.00, '2012-09-10', 3002, 5001),
+    -> (70010, 1983.43, '2012-10-10', 3004, 5006);
+Query OK, 8 rows affected (0.08 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM SALES
+    -> ^C
+mysql> ^C
+mysql> SELECT * FROM SALES;
+Empty set (0.03 sec)
+
+mysql> SELECT * FROM Sales;
+Empty set (0.01 sec)
+
+mysql> INSERT INTO Sales (ord_no, purch_amt, ord_date, customer_id, salesman_id) VALUES
+    -> (70001, 150.50, '2012-10-05', 3005, 5002),
+    -> (70009, 270.65, '2012-09-10', 3001, 5005),
+    -> (70002, 65.26, '2012-10-05', 3002, 5001),
+    -> (70004, 110.50, '2012-08-17', 3009, 5003),
+    -> (70007, 948.50, '2012-09-10', 3005, 5002),
+    -> (70005, 2400.60, '2012-07-27', 3007, 5001),
+    -> (70008, 5760.00, '2012-09-10', 3002, 5001),
+    -> (70010, 1983.43, '2012-10-10', 3004, 5006);
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> DROP DATABASE NAV;
+Query OK, 6 rows affected (0.51 sec)
+
+mysql> CREATE DATABASE DB;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> USE DB;
+Database changed
+mysql>  CREATE TABLE Sales(
+    ->     -> ord_no INT,
+    ->     -> purch_amt FLOAT,
+    ->     -> ord_date DATE,
+    ->     -> customer_id INT,
+    ->     -> salesman_id INT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> ord_no INT,
+    -> purch_amt FLOAT,
+    -> ord_date DATE,
+    -> customer_id ' at line 2
+mysql>     -> salesman_id INT);^C
+mysql> ^C
+mysql> ^C
+mysql> CREATE TABLE orders (
+    ->     ord_no INT PRIMARY KEY,
+    ->     purch_amt DECIMAL(10, 2),
+    ->     ord_date DATE,
+    ->     customer_id INT,
+    ->     salesman_id INT
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO orders (ord_no, purch_amt, ord_date, customer_id, salesman_id) VALUES
+    -> (70001, 150.50, '2012-10-05', 3005, 5002),
+    -> (70009, 270.65, '2012-09-10', 3001, 5005),
+    -> (70002, 65.26, '2012-10-05', 3002, 5001),
+    -> (70004, 110.50, '2012-08-17', 3009, 5003),
+    -> (70007, 948.50, '2012-09-10', 3005, 5002),
+    -> (70005, 2400.60, '2012-07-27', 3007, 5001),
+    -> (70008, 5760.00, '2012-09-10', 3002, 5001),
+    -> (70010, 1983.43, '2012-10-10', 3004, 5006);
+Query OK, 8 rows affected (0.04 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Sales;
+ERROR 1146 (42S02): Table 'db.sales' doesn't exist
+mysql> INSERT INTO Sales (ord_no, purch_amt, ord_date, customer_id, salesman_id) VALUES
+    -> (70001, 150.50, '2012-10-05', 3005, 5002),
+    -> (70009, 270.65, '2012-09-10', 3001, 5005),
+    -> (70002, 65.26, '2012-10-05', 3002, 5001),
+    -> (70004, 110.50, '2012-08-17', 3009, 5003),
+    -> (70007, 948.50, '2012-09-10', 3005, 5002),
+    -> (70005, 2400.60, '2012-07-27', 3007, 5001),
+    -> (70008, 5760.00, '2012-09-10', 3002, 5001),
+    -> (70010, 1983.43, '2012-10-10', 3004, 5006);
+ERROR 1146 (42S02): Table 'db.sales' doesn't exist
+mysql> cls
+    -> cls;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cls
+cls' at line 1
+mysql> DROP DATABASE DB;
+Query OK, 1 row affected (0.53 sec)
+
+mysql> USE DATABASE DB;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> USE DATABASE NAV;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> CREATE DATABASE DB;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> USE DB;
+Database changed
+mysql> CREATE TABLE Sales (
+    ->     ord_no INT,
+    ->     purch_amt FLOAT,
+    ->     ord_date DATE,
+    ->     customer_id INT,
+    ->     salesman_id INT
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql>
+mysql> INSERT INTO Sales (ord_no, purch_amt, ord_date, customer_id, salesman_id) VALUES
+    -> (70001, 150.50, '2012-10-05', 3005, 5002),
+    -> (70009, 270.65, '2012-09-10', 3001, 5005),
+    -> (70002, 65.26, '2012-10-05', 3002, 5001),
+    -> (70004, 110.50, '2012-08-17', 3009, 5003),
+    -> (70007, 948.50, '2012-09-10', 3005, 5002),
+    -> (70005, 2400.60, '2012-07-27', 3007, 5001),
+    -> (70008, 5760.00, '2012-09-10', 3002, 5001),
+    -> (70010, 1983.43, '2012-10-10', 3004, 5006);
+Query OK, 8 rows affected (0.04 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Sales;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |     150.5 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |     110.5 | 2012-08-17 |        3009 |        5003 |
+|  70007 |     948.5 | 2012-09-10 |        3005 |        5002 |
+|  70005 |    2400.6 | 2012-07-27 |        3007 |        5001 |
+|  70008 |      5760 | 2012-09-10 |        3002 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
++--------+-----------+------------+-------------+-------------+
+8 rows in set (0.01 sec)
+
+mysql> SELECT SUM(purch_amt) AS total_purchase_amt FROM Sales;
++--------------------+
+| total_purchase_amt |
++--------------------+
+| 11689.440147399902 |
++--------------------+
+1 row in set (0.03 sec)
+
+mysql> SELECT AVG(purch_amt) AS avg_purchase_amt FROM Sales;
++--------------------+
+| avg_purchase_amt   |
++--------------------+
+| 1461.1800184249878 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT salesman_id) AS total_salesman FROM Sales;
++----------------+
+| total_salesman |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.11 sec)
+
+mysql> SELECT MAX(purch_amt) AS max_purchase_amt FROM Sales;
++------------------+
+| max_purchase_amt |
++------------------+
+|             5760 |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT MIN(purch_amt) AS min_purchase_amt FROM Sales;
++------------------+
+| min_purchase_amt |
++------------------+
+|            65.26 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT customer_id,MAX(purch_amt) FROM SALES GROUP BY customer_id;
++-------------+----------------+
+| customer_id | MAX(purch_amt) |
++-------------+----------------+
+|        3005 |          948.5 |
+|        3001 |         270.65 |
+|        3002 |           5760 |
+|        3009 |          110.5 |
+|        3007 |         2400.6 |
+|        3004 |        1983.43 |
++-------------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amount
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date;
++-------------+------------+-------------------------+
+| customer_id | ord_date   | highest_purchase_amount |
++-------------+------------+-------------------------+
+|        3005 | 2012-10-05 |                   150.5 |
+|        3001 | 2012-09-10 |                  270.65 |
+|        3002 | 2012-10-05 |                   65.26 |
+|        3009 | 2012-08-17 |                   110.5 |
+|        3005 | 2012-09-10 |                   948.5 |
+|        3007 | 2012-07-27 |                  2400.6 |
+|        3002 | 2012-09-10 |                    5760 |
+|        3004 | 2012-10-10 |                 1983.43 |
++-------------+------------+-------------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT customer_id,ord_date,MAX(purch_amt) AS highest_purch_amt^C
+mysql> ^C
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amount
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) IN (2000, 3000, 5760, 6000);
++-------------+------------+-------------------------+
+| customer_id | ord_date   | highest_purchase_amount |
++-------------+------------+-------------------------+
+|        3002 | 2012-09-10 |                    5760 |
++-------------+------------+-------------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amount
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING highest_purchase_amount IN (2000, 3000, 5760, 6000);
++-------------+------------+-------------------------+
+| customer_id | ord_date   | highest_purchase_amount |
++-------------+------------+-------------------------+
+|        3002 | 2012-09-10 |                    5760 |
++-------------+------------+-------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT customer_id,ord_date,MAX(purch_amt) as highest_purchase_amt FROM Sales GROUP BY customer_id,ord_date WHERE puch_amt>=2000 AND purch_amt<=6000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE puch_amt>=2000 AND purch_amt<=6000' at line 1
+mysql> SELECT customer_id,ord_date,MAX(purch_amt) as highest_purchase_amt FROM Sales GROUP BY customer_id,ord_date ^C
+mysql> ^C
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    ->    AND MAX(purch_amt) <= 6000;
++-------------+------------+----------------------+
+| customer_id | ord_date   | highest_purchase_amt |
++-------------+------------+----------------------+
+|        3007 | 2012-07-27 |               2400.6 |
+|        3002 | 2012-09-10 |                 5760 |
++-------------+------------+----------------------+
+2 rows in set (0.02 sec)
+
+mysql> HAVING MAX(purch_amt) >= 2000^C
+mysql> ^C
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    ->    AND MAX(purch_amt) <= 6000;
++-------------+------------+----------------------+
+| customer_id | ord_date   | highest_purchase_amt |
++-------------+------------+----------------------+
+|        3007 | 2012-07-27 |               2400.6 |
+|        3002 | 2012-09-10 |                 5760 |
++-------------+------------+----------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    ->    AND MAX(purch_amt) <= 6000;
++-------------+------------+----------------------+
+| customer_id | ord_date   | highest_purchase_amt |
++-------------+------------+----------------------+
+|        3007 | 2012-07-27 |               2400.6 |
+|        3002 | 2012-09-10 |                 5760 |
++-------------+------------+----------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    -> HAVING MAX(purch_amt) >= 2000^Z^Z^Z^C
+mysql> ^C
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    -> HAVING MAX(purch_amt) >= 2000^C
+mysql> ^C
+mysql> HAVING MAX(purch_amt) >= 2000^C
+mysql> ^C
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    -> HAVING MAX(purch_amt) >= 2000^C
+mysql> ^C
+mysql> GROUP BY customer_id, ord_date^C
+mysql> ^C
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    -> HAVING MAX(purch_amt) >= 2000^C
+mysql> ^C
+mysql> ^C
+mysql> SELECT customer_id,
+    ->        ord_date,
+    ->        MAX(purch_amt) AS highest_purchase_amt
+    -> FROM Sales
+    -> GROUP BY customer_id, ord_date
+    -> HAVING MAX(purch_amt) >= 2000
+    ->    AND highest_purch_amt <= 6000^C
+mysql> ^C
+mysql> ^C
+mysql> SELECT customer_id,ord_date,MAX(purch_amt) AS highest_purchase_amt FROM Sales GROUP BY customer_id,ord_date HAVING highest_purchase_amt >= 2000 AND highest_purchase_amt <= 6000;
++-------------+------------+----------------------+
+| customer_id | ord_date   | highest_purchase_amt |
++-------------+------------+----------------------+
+|        3007 | 2012-07-27 |               2400.6 |
+|        3002 | 2012-09-10 |                 5760 |
++-------------+------------+----------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT salesman_id,MAX(purch_amt) FROM Sales WHERE ord_date = '2012-09-10' GROUP BY salesman_id;
++-------------+----------------+
+| salesman_id | MAX(purch_amt) |
++-------------+----------------+
+|        5005 |         270.65 |
+|        5002 |          948.5 |
+|        5001 |           5760 |
++-------------+----------------+
+3 rows in set (0.02 sec)
+
+mysql> SELECT * FROM Sales;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |     150.5 | 2012-10-05 |        3005 |        5002 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |     110.5 | 2012-08-17 |        3009 |        5003 |
+|  70007 |     948.5 | 2012-09-10 |        3005 |        5002 |
+|  70005 |    2400.6 | 2012-07-27 |        3007 |        5001 |
+|  70008 |      5760 | 2012-09-10 |        3002 |        5001 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
++--------+-----------+------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT customer_id,MAX(purch_amt) as highest_purchase_amt WHERE customer_id >= 3002 AND customer_id <=3007;
+ERROR 1054 (42S22): Unknown column 'customer_id' in 'field list'
+mysql> SELECT customer_id,MAX(purch_amt) as highest_purchase_amt FROM Sales WHERE customer_id >= 3002 AND customer_id <=3007;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'db.Sales.customer_id'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT customer_id,MAX(purch_amt) as highest_purchase_amt FROM Sales GROUP BY customer_id WHERE customer_id >= 3002 AND customer_id <=3007;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE customer_id >= 3002 AND customer_id <=3007' at line 1
+mysql> SELECT customer_id,MAX(purch_amt) as highest_purchase_amt FROM Sales WHERE customer_id >= 3002 AND customer_id <=3007 GROUP BY customer_id;
++-------------+----------------------+
+| customer_id | highest_purchase_amt |
++-------------+----------------------+
+|        3005 |                948.5 |
+|        3002 |                 5760 |
+|        3007 |               2400.6 |
+|        3004 |              1983.43 |
++-------------+----------------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT COUNT(ord_no) FROM Sales WHERE ord_date = '2012-08-17';
++---------------+
+| COUNT(ord_no) |
++---------------+
+|             1 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT COUNT(salesman_id),ord_date,customer_id FROM Sales GROUP BY ord_date;
+ERROR 1055 (42000): Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'db.Sales.customer_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNT(salesman_id),ord_date,customer_id FROM Sales GROUP BY ord_date,customer_id;
++--------------------+------------+-------------+
+| COUNT(salesman_id) | ord_date   | customer_id |
++--------------------+------------+-------------+
+|                  1 | 2012-10-05 |        3005 |
+|                  1 | 2012-09-10 |        3001 |
+|                  1 | 2012-10-05 |        3002 |
+|                  1 | 2012-08-17 |        3009 |
+|                  1 | 2012-09-10 |        3005 |
+|                  1 | 2012-07-27 |        3007 |
+|                  1 | 2012-09-10 |        3002 |
+|                  1 | 2012-10-10 |        3004 |
++--------------------+------------+-------------+
+8 rows in set (0.01 sec)
+
+mysql> CREATE TABLE Customers (
+    ->     customer_id INT PRIMARY KEY,
+    ->     cust_name VARCHAR(50),
+    ->     city VARCHAR(50),
+    ->     grade INT,
+    ->     salesman_id INT
+    -> );
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> INSERT INTO Customers (customer_id, cust_name, city, grade, salesman_id) VALUES
+    -> (3002, 'Nick Rimando', 'New York', 100, 5001),
+    -> (3007, 'Brad Davis', 'New York', 200, 5001),
+    -> (3005, 'Graham Zusi', 'California', 200, 5002),
+    -> (3008, 'Julian Green', 'London', 300, 5002),
+    -> (3004, 'Fabian Johnson', 'Paris', 300, 5006),
+    -> (3009, 'Geoff Cameron', 'Berlin', 100, 5003),
+    -> (3003, 'Jozy Altidore', 'Moscow', 200, 5007),
+    -> (3001, 'Brad Guzan', 'London',  NULL, 5005);
+Query OK, 8 rows affected (0.03 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Customers;
++-------------+----------------+------------+-------+-------------+
+| customer_id | cust_name      | city       | grade | salesman_id |
++-------------+----------------+------------+-------+-------------+
+|        3001 | Brad Guzan     | London     |  NULL |        5005 |
+|        3002 | Nick Rimando   | New York   |   100 |        5001 |
+|        3003 | Jozy Altidore  | Moscow     |   200 |        5007 |
+|        3004 | Fabian Johnson | Paris      |   300 |        5006 |
+|        3005 | Graham Zusi    | California |   200 |        5002 |
+|        3007 | Brad Davis     | New York   |   200 |        5001 |
+|        3008 | Julian Green   | London     |   300 |        5002 |
+|        3009 | Geoff Cameron  | Berlin     |   100 |        5003 |
++-------------+----------------+------------+-------+-------------+
+8 rows in set (0.01 sec)
+
+mysql> SELECT COUNT(cust_name) AS total_listed_customer FROM Customers;
++-----------------------+
+| total_listed_customer |
++-----------------------+
+|                     8 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(customer_id) AS total_customers_with_grade FROM Customers WHERE grade != NULL;
++----------------------------+
+| total_customers_with_grade |
++----------------------------+
+|                          0 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(customer_id) AS total_customers_with_grade FROM Customers WHERE grade IS NOT NULL;
++----------------------------+
+| total_customers_with_grade |
++----------------------------+
+|                          7 |
++----------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT city,MAX(grade) FROM Customers GROUP BY city;
++------------+------------+
+| city       | MAX(grade) |
++------------+------------+
+| London     |        300 |
+| New York   |        200 |
+| Moscow     |        200 |
+| Paris      |        300 |
+| California |        200 |
+| Berlin     |        100 |
++------------+------------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT COUNT(customer_id) FROM Customers WHERE customer_id>=3001
+    -> ^C
+mysql> ^C
+mysql> SELECT COUNT(customer_id) FROM Customers WHERE customer_id>=3001;
++--------------------+
+| COUNT(customer_id) |
++--------------------+
+|                  8 |
++--------------------+
+1 row in set (0.04 sec)
+
+mysql>
