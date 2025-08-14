@@ -105,27 +105,48 @@ void dnfAlgo(vector<int>&arr){
     }
 }
 
+int colorToNumber(const string &color) {
+    string temp = color;
+    // Convert to lowercase for uniformity
+    for(auto &c : temp) c = tolower(c);
+    if(temp == "red") return 0;
+    else if(temp == "white") return 1;
+    else if(temp == "blue") return 2;
+    else return -1; // invalid color
+}
+
+
 int main(){
     int n;
-    cout<<"Enter the numeber of the objects : ";
-    cin>>n;
-    vector<int>arr(n);
-    // take input as color please verify also
-    cout<<"Enter the objects color 0(Red) , 1(White) and 2(Blue) only : \n";
-    for(int i=0; i<n; i++){
-        cout<<"Enter " <<i+1 <<" th object out of "<<n <<" : ";
-        cin>>arr[i];
-        if(arr[i] < 0 || arr[i] > 2){
-            cout<<"Invalid input! Please enter 0, 1, or 2 only.\n";
-            return 1; 
+    cout << "Enter the number of objects: ";
+    cin >> n;
+    vector<int> arr(n);
+    cin.ignore(); // flush newline after reading n
+
+    cout << "Enter the objects color (Red, White, Blue) in any case combination:\n";
+
+    for(int i = 0; i < n; i++){
+        string color;
+        cout << "Enter color of object " << i+1 << " out of " << n << " : ";
+        getline(cin, color);
+
+        int val = colorToNumber(color);
+        if(val == -1){
+            cout << "Invalid input! Please enter Red, White, or Blue only.\n";
+            return 1;
         }
+        arr[i] = val;
     }
-    bubbleSort(arr);
+    // bubbleSort(arr);
     // selectionSort(arr);
     // insertionSort(arr);
     // countAndArrangeInArray(arr);
-    // dnfAlgo(arr);
+    dnfAlgo(arr);
     // vector<int>mergeSortAns = mergeSort(arr,0,arr.size()-1);
     cout<<"Your sorted array of object is : \n";
-    for(auto i : arr) cout<<i <<" ";
+    for(auto i : arr){
+        if(i == 0) cout << "Red ";
+        else if(i == 1) cout << "White ";
+        else if(i == 2) cout << "Blue ";
+    }
 }
