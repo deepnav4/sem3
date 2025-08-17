@@ -212,7 +212,10 @@ void reverse(string s){
 }
 
 void reverse(float a){
-    // logic of reversing float number
+    string s = to_string(a); 
+    while(!s.empty() && s.back()=='0') s.pop_back();
+    if(!s.empty() && s.back()=='.') s.pop_back();
+    reverse(s);  
 }
 
 

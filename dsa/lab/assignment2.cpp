@@ -125,8 +125,8 @@ int main2(){
 }
 
 int main(){
-    // main2();
-    main1();
+    main2();
+    // main1();
 }
 
 

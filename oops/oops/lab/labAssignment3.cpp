@@ -1,55 +1,17 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// struct Student{
-//     private :
-//     string name;
-//     int rollNo;
-//     float marks;
-
-//     public:
-//     void takeInputs(Student &s1){
-//         cout<<"Inside take inputs Functions !!\n";
-//         cout<<"Enter Name of Student : ";
-//         getline(cin,s1.name);
-//         cout<<"Enter Roll No of Student : ";
-//         cin>>s1.rollNo;
-//         cout<<"Enter Marks of Student : ";
-//         cin>>s1.marks;
-//     }
-
-//     void display(Student &s1){
-//         cout<<"Inside Diaplay Function !!\n";
-//         cout<<"Name of the Student : " <<s1.name <<endl; 
-//         cout<<"Roll No of the Student : " <<s1.rollNo <<endl;
-//         cout<<"Marks of the Student : " <<s1.marks <<endl;
-//     }
-// };
-
-// int main(){
-//     Student s1;
-//     s1.takeInputs(s1);
-//     s1.display(s1);
-// }
-
-
-// Lab Assignment 3
-
-// Q1. Write overloaded versions of the function multiply() to: Multiply two integers, Multiply a
-// float and an integer (any order), Multiply two doubles.
-
-// float multiply(float a,int b){
-//     return a*b;
-// }
-
+// multiply two integers
 float multiply(int a,int b){
     return a*b;
 }
 
+// multiply int and float
 float multiply(int a,float b){
     return a*b;
 }
 
+// multiply two floats
 float multiply(float a,float b){
     return a*b;
 }
@@ -57,28 +19,28 @@ float multiply(float a,float b){
 int main1(){
     cout<<multiply(3.5,3) <<endl;
     cout<<multiply(3,3) <<endl;
-    cout<<multiply(3.5f,3.5f) <<endl; // By default it is considered as double 
+    cout<<multiply(3.5f,3.5f) <<endl;
+    return 0;
 }
 
-
-// Q2. Write overloaded version of the function compare () to, compare two integers, compare
-// two strings, and compare two characters.
-
+// compare two integers
 void compare(int a,int b){
     if(a>b) cout<<a <<" is Greater than "<<b <<endl;
     else if(a<b) cout<<b<<" is Greater than "<<a <<endl;
     else cout<<"Both " <<a <<" and " <<b <<" are equal"<<endl;
 }
 
+// compare two characters
 void compare(char a,char b){
     if(a>b) cout<<a <<" is Greater than "<<b <<endl;
     else if(a<b) cout<<b<<" is Greater than "<<a <<endl;
     else cout<<"Both " <<a <<" and " <<b <<" are equal" <<endl;
 }
 
+// compare two strings
 void compare(string a,string b){
     if(a>b) cout<<a <<" is Greater than "<<b <<endl;
-    else if(a<b) cout<<b<<" is Greater than "<<a <<endl;
+    else if(a<b) cout<<b <<" is Greater than "<<a <<endl;
     else cout<<"Both " <<a <<" and " <<b <<" are equal" <<endl;
 }
 
@@ -86,12 +48,10 @@ int main2(){
     compare('a','b');
     compare(1,2);
     compare("Hello","World");
+    return 0;
 }
 
-
-// Q3. Write overloaded version of the function reverse () to, reverse an integer, reverse a string,
-// and reverse a float.
-
+// reverse an integer
 void reverse(int a){
     int reversedNum = 0;
     while(a){
@@ -102,9 +62,9 @@ void reverse(int a){
     cout<<reversedNum<<endl;
 }
 
+// reverse a string
 void reverse(string s){
-    int start = 0;
-    int end = s.size()-1;
+    int start = 0, end = s.size()-1;
     while(start<=end){
         swap(s[start],s[end]);
         start++;
@@ -113,23 +73,22 @@ void reverse(string s){
     cout<<s<<endl;
 }
 
+// reverse a float
 void reverse(float a){
-    // logic of reversing float number
+    string s = to_string(a); 
+    while(!s.empty() && s.back()=='0') s.pop_back();
+    if(!s.empty() && s.back()=='.') s.pop_back();
+    reverse(s);  
 }
-
 
 int main3(){
     reverse(201);
     reverse("Navdeep");
+    reverse(12.34f);
+    return 0;
 }
 
-
-
-
-
-// Q4. Define a struct Book with members char title [50], char author [50], and float price. Create
-// three Book variables using designated initialization and display their details.
-
+// struct for book
 struct Book{
     char title[50];
     char author[50];
@@ -151,15 +110,10 @@ int main4(){
     b1.display(b1);
     b2.display(b2);
     b3.display(b3);
-
     return 0;
 }
 
-
-// Q5. Define a struct named Employee with int empId, char name [50], and float salary. Write a
-// function printEmployee(Employee) to print employee details. Call this function from main()
-// after taking input from the user.
-
+// struct for employee
 struct Employee{
     int empId;
     char name[50];
@@ -171,7 +125,6 @@ struct Employee{
         cout << "Salary: " << emp.salary << endl;
     }
 };
-
 
 int main5(){
     Employee emp;
@@ -186,11 +139,7 @@ int main5(){
     return 0;
 }
 
-
-
-// Q6. Define a struct Product with int productId, char name [50], float price. Write a program to
-// input details of n products and display the product with the highest price.
-
+// struct for product
 struct Product{
     int productId;
     char name[50];
@@ -224,21 +173,17 @@ int main6(){
     cout<<"ID: "<<maxProduct.productId<<endl;
     cout<<"Name: "<<maxProduct.name<<endl;
     cout<<"Price: "<<maxProduct.price<<endl;
+    return 0;
 }
 
-
-// Q7. Define two structures Date with day, month, year, and Person with name, Date dob (date
-// of birth). Write a program to input and display a person's name and date of birth.
-
-
-
-// Basically Use of one struct to another Inheritance
+// struct for date
 struct Date{
     int day;
     int month;
     int year;
 };
 
+// struct for person with dob
 struct Person{
     char name[50];
     Date dob;
@@ -253,7 +198,6 @@ int main7(){
 
     cout << "Name: " << p.name << endl;
     cout << "Date of Birth: " << p.dob.day << "/" << p.dob.month << "/" << p.dob.year << endl;
-
     return 0;
 }
 
