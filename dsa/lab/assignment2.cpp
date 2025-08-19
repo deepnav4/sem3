@@ -124,13 +124,67 @@ int main2(){
     else cout<<"Student Solved Question in Wrong order.";
 }
 
-int main(){
-    main2();
-    // main1();
-}
 
 
 // (Group 3)
 // A company has some interns under a project. In his coding class, who are practicing problems. Given the difficulty of the problems that the students have solved in order, help the Chef identify if they are solving them in non-decreasing order of difficulty.
 // Non-decreasing means that the values in an array are either increasing or remaining the same, but not decreasing. That is, the students should not solve a problem with difficulty d1, and then later a problem with difficulty d2, where d1 > d2.
 // Output "Yes" if the problems are attempted in non-decreasing order of difficulty rating and "No" if not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void uniqueQuad(int idx, vector<int>& nums, int target, vector<vector<int>>& ans, vector<int>& temp) {
+    if(temp.size() == 4) {
+        if(target == 0) {
+            // only push if this combination is not already in ans
+            // if(find(ans.begin(), ans.end(), temp) == ans.end()) {
+                ans.push_back(temp);
+            // }
+        }
+        return;
+    }
+    if(idx >= nums.size()) return;
+
+    // Take current number
+    temp.push_back(nums[idx]);
+    uniqueQuad(idx+1, nums, target - nums[idx], ans, temp);
+    temp.pop_back();
+
+    // Do not take current number
+    uniqueQuad(idx+1, nums, target, ans, temp);
+}
+
+int main3() {
+    vector<int> nums = {1,0,-1,0,-2,2};
+    int target = 0;
+    vector<vector<int>> ans;
+    vector<int> temp;
+
+    uniqueQuad(0, nums, target, ans, temp);
+
+    for(auto &v : ans){
+        for(int x : v) cout << x << " ";
+        cout << endl;
+    }
+    return 0;
+}
+
+
+
+
+int main(){
+    // main2();
+    main3();
+    // main1();
+}

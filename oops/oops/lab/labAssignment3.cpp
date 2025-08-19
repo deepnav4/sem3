@@ -82,7 +82,8 @@ void reverse(float a){
 }
 
 int main3(){
-    reverse(201);
+    // reverse()
+
     reverse("Navdeep");
     reverse(12.34f);
     return 0;

@@ -1,0 +1,234 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Navdeep Singh}
+\lhead{OOP Assignment 3}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+
+\begin{document}
+
+% ---------- Custom Title Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \bfseries Object Oriented Programming Lab \par}
+    \vspace{0.5cm}
+    {\LARGE \bfseries Assignment 4 \par}
+    \vspace{2.5cm}
+    {\Large Submitted by: \par}
+    \vspace{0.3cm}
+    {\large \textbf{Navdeep Singh} \par}
+    \vspace{0.3cm}
+    {\large \textbf{19th August 2025} \par}
+    \vspace{0.3cm}
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year
+    \vfill
+\end{titlepage}
+
+
+% ---------- Start of Questions ----------
+% Paste your \section*{1. ...}, \subsection*{Code}, etc. from here onward
+
+
+
+%----------------------------------------
+\section*{Practice Question to parctice class and scope of static varible declared as member function or declared as globally !! }
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include<bits/stdc++.h>
+using namespace std;
+
+class Student{
+    int id;
+    int marks;
+    static int count;  // Static member inside class
+
+public:
+    void display(){
+        cout <<"id "<< id << endl;
+        cout <<"marks : " << marks << endl;
+        count++;
+        cout << "Count: " << count << endl;
+    }
+
+    void setValues(int a , int m ){
+        id = a ;
+        marks =  m ;
+    }
+};
+
+// Definition of static member
+int Student::count = 0;
+
+int main(){
+    Student s1;
+    s1.setValues(1 , 98) ;
+    s1.display();
+    s1.display();
+    s1.display();
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+id 1
+marks : 98
+Count: 1
+id 1
+marks : 98
+Count: 2
+id 1
+marks : 98
+Count: 3
+\end{lstlisting}
+
+%----------------------------------------
+\section*{Q1. Write a C++ program to define a class named BankAccount that performs the following  operations : 
+i. Declare a static data member named totalAccounts to keep track of the total number of bank accounts created.
+ii. Declare a non-static data member named accountNumber to store the account number of each individual account.
+iii. Define a public member function named setAccountNumber() that:
+a. Accepts an account number as a parameter.
+b. Sets the accountNumber for the object.
+c. Increments the totalAccounts counter each time it is called.
+iv. Define a member function named showTotalAccounts() that:
+a. Displays the total number of accounts created by accessing the static variable.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+static int totalAccounts; // declartion of global static variable
+
+class BankAccount{
+    int accountNo;
+
+    public :
+        void setAccountNumber(int no){
+            accountNo = no;
+            totalAccounts++;
+        }
+
+        void showTotalAccounts(){
+            cout<< "Total Account Number : " <<totalAccounts;
+        }
+};
+
+
+int main1(){
+    BankAccount b1;
+    b1.setAccountNumber(94);
+    b1.setAccountNumber(95);
+    b1.setAccountNumber(96);
+    b1.setAccountNumber(97);
+    b1.showTotalAccounts();
+}
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Total Account Number : 4
+\end{lstlisting}
+
+
+\section*{Q2. Write a C++ program that defines a class User to simulate user registration in a system,
+with the following requirements:
+i. Define a static data member nextID to keep track of the next available unique user ID
+(starting from 1000).
+ii. Define a non-static data member userID to store the ID of each registered user.
+iii. Create a member function registerUser() that:
+a. Assigns the current nextID value to the userID of the object.
+b. Increments nextID so the next user gets a new ID.
+iv. Create a member function showUser() to display the userID of the object.
+v. Create another member function showNextID() that:
+a. Displays the next user ID to be assigned (by accessing the static data member).
+}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class User{
+    public:
+        static int nextId; // static varible declared as data member but its value should be declared outside the function
+
+        int userId;
+        int temp = nextId;
+        User(){
+            userId = nextId;
+            nextId++;
+        }
+
+        void registerUser(){
+            userId = nextId;
+            nextId++;
+            cout<<"User Registered with ID : " <<userId <<endl;
+        }
+
+        void showUser(){
+            cout<<"User id of the current user : "<<userId <<endl;
+        }
+
+        void showNextId(){
+            cout<<"Next User id to be assigned to the user is : " <<nextId <<endl;
+        }
+};
+
+
+int User :: nextId = 1000; // value initilzed of static data member 
+
+int main2(){
+    User s1;
+    s1.showUser();
+    s1.registerUser();
+    s1.registerUser();
+    s1.registerUser();
+    s1.showUser();
+    s1.showNextId();
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+User id of the current user : 1000
+User Registered with ID : 1001
+User Registered with ID : 1002
+User Registered with ID : 1003
+User id of the current user : 1003
+Next User id to be assigned to the user is : 1004
+\end{lstlisting}
+
+\end{document}
