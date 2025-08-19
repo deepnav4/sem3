@@ -3,36 +3,37 @@ using namespace std;
 
 
 
-class Student{
-    int id;
-    int marks;
-    static int count;  // Static member inside class
+// class Student{
+//     int id;
+//     int marks;
+//     static int count;  // Static member inside class
 
-public:
-    void display(){
-        cout <<"id "<< id << endl;
-        cout <<"marks : " << marks << endl;
-        count++;
-        cout << "Count: " << count << endl;
-    }
+// public:
+//     void display(){
+//         cout <<"id "<< id << endl;
+//         cout <<"marks : " << marks << endl;
+//         count++;
+//         cout << "Count: " << count << endl;
+//     }
 
-    void setValues(int a , int m ){
-        id = a ;
-        marks =  m ;
-    }
-};
+//     void setValues(int a , int m ){
+//         id = a ;
+//         marks =  m ;
+//     }
+// };
 
-// Definition of static member
-int Student::count = 0;
+// // Definition of static member
+// int Student::count = 0;
+// // varibale type  Object Name :: varible name  initialValue
 
-int main(){
-    Student s1;
-    s1.setValues(1 , 98) ;
-    s1.display();
-    s1.display();
-    s1.display();
-    return 0;
-}
+// int main(){
+//     Student s1;
+//     s1.setValues(1 , 98) ;
+//     s1.display();
+//     s1.display();
+//     s1.display();
+//     return 0;
+// }
 
 
 
@@ -50,31 +51,31 @@ int main(){
 // a. Displays the total number of accounts created by accessing the static variable.
 
 
-// static int totalAccounts; // declartion of global static variable
+static int totalAccounts; // declartion of global static variable
 
-// class BankAccount{
-//     int accountNo;
+class BankAccount{
+    int accountNo;
 
-//     public :
-//         void setAccountNumber(int no){
-//             accountNo = no;
-//             totalAccounts++;
-//         }
+    public :
+        void setAccountNumber(int no){
+            accountNo = no;
+            totalAccounts++;
+        }
 
-//         void showTotalAccounts(){
-//             cout<< "Total Account Number : " <<totalAccounts;
-//         }
-// };
+        void showTotalAccounts(){
+            cout<< "Total Account Number : " <<totalAccounts;
+        }
+};
 
 
-// int main1(){
-//     BankAccount b1;
-//     b1.setAccountNumber(94);
-//     b1.setAccountNumber(95);
-//     b1.setAccountNumber(96);
-//     b1.setAccountNumber(97);
-//     b1.showTotalAccounts();
-// }
+int main1(){
+    BankAccount b1;
+    b1.setAccountNumber(94);
+    b1.setAccountNumber(95);
+    b1.setAccountNumber(96);
+    b1.setAccountNumber(97);
+    b1.showTotalAccounts();
+}
 
 
 
@@ -93,49 +94,49 @@ int main(){
 
 
 
-// class User{
-//     public:
-//         static int nextId; // static varible declared as data member but its value should be declared outside the function
+class User{
+    public:
+        static int nextId; // static varible declared as data member but its value should be declared outside the function
 
-//         int userId;
-//         int temp = nextId;
-//         User(){
-//             userId = nextId;
-//             nextId++;
-//         }
+        int userId;
+        int temp = nextId;
+        User(){
+            userId = nextId;
+            nextId++;
+        }
 
-//         void registerUser(){
-//             userId = nextId;
-//             nextId++;
-//             cout<<"User Registered with ID : " <<userId <<endl;
-//         }
+        void registerUser(){
+            userId = nextId;
+            nextId++;
+            cout<<"User Registered with ID : " <<userId <<endl;
+        }
 
-//         void showUser(){
-//             cout<<"User id of the current user : "<<userId <<endl;
-//         }
+        void showUser(){
+            cout<<"User id of the current user : "<<userId <<endl;
+        }
 
-//         void showNextId(){
-//             cout<<"Next User id to be assigned to the user is : " <<nextId <<endl;
-//         }
-// };
+        void showNextId(){
+            cout<<"Next User id to be assigned to the user is : " <<nextId <<endl;
+        }
+};
 
 
-// int User :: nextId = 1000; // value initilzed of static data member 
+int User :: nextId = 1000; // value initilzed of static data member 
 
-// int main2(){
-//     User s1;
-//     s1.showUser();
-//     s1.registerUser();
-//     s1.registerUser();
-//     s1.registerUser();
-//     s1.showUser();
-//     s1.showNextId();
-// }
+int main2(){
+    User s1;
+    s1.showUser();
+    s1.registerUser();
+    s1.registerUser();
+    s1.registerUser();
+    s1.showUser();
+    s1.showNextId();
+}
 
-// int main(){
-//     main1();
-//     // main2();
-// }
+int main(){
+    // main1();
+    main2();
+}
 
 
 
