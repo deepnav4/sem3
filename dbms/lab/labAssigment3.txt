@@ -1,0 +1,360 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> DROP DATABASE DB
+    -> ;
+Query OK, 2 rows affected (0.62 sec)
+
+mysql> CREATE DATABASE DB;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> USE DB;
+Database changed
+mysql> CREATE TABLE salesman (
+    ->     salesman_id INT PRIMARY KEY,
+    ->     name VARCHAR(50),
+    ->     city VARCHAR(50),
+    ->     commission DECIMAL(4,2)
+    -> );
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> INSERT INTO salesman (salesman_id, name, city, commission) VALUES
+    -> (5001, 'James Hoog', 'New York', 0.15),
+    -> (5002, 'Nail Knite', 'Paris', 0.13),
+    -> (5005, 'Pit Alex', 'London', 0.11),
+    -> (5006, 'Mc Lyon', 'Paris', 0.14),
+    -> (5007, 'Paul Adam', 'Rome', 0.13),
+    -> (5003, 'Lauson Hen', 'San Jose', 0.12);
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE customer (
+    ->     customer_id INT PRIMARY KEY,
+    ->     cust_name VARCHAR(50),
+    ->     city VARCHAR(50),
+    ->     grade INT,
+    ->     salesman_id INT,
+    ->     FOREIGN KEY (salesman_id) REFERENCES salesman(salesman_id)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> INSERT INTO customer (customer_id, cust_name, city, grade, salesman_id) VALUES
+    -> (3002, 'Nick Rimando', 'New York', 100, 5001),
+    -> (3007, 'Brad Davis', 'New York', 200, 5001),
+    -> (3005, 'Graham Zusi', 'California', 200, 5002),
+    -> (3008, 'Julian Green', 'London', 300, 5002),
+    -> (3004, 'Fabian Johnson', 'Paris', 300, 5006),
+    -> (3009, 'Geoff Cameron', 'Berlin', 100, 5003),
+    -> (3003, 'Jozy Altidore', 'Moscow', 200, 5007),
+    -> (3001, 'Brad Guzan', 'London', 200, 5005);
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM customer
+    -> ;
++-------------+----------------+------------+-------+-------------+
+| customer_id | cust_name      | city       | grade | salesman_id |
++-------------+----------------+------------+-------+-------------+
+|        3001 | Brad Guzan     | London     |   200 |        5005 |
+|        3002 | Nick Rimando   | New York   |   100 |        5001 |
+|        3003 | Jozy Altidore  | Moscow     |   200 |        5007 |
+|        3004 | Fabian Johnson | Paris      |   300 |        5006 |
+|        3005 | Graham Zusi    | California |   200 |        5002 |
+|        3007 | Brad Davis     | New York   |   200 |        5001 |
+|        3008 | Julian Green   | London     |   300 |        5002 |
+|        3009 | Geoff Cameron  | Berlin     |   100 |        5003 |
++-------------+----------------+------------+-------+-------------+
+8 rows in set (0.02 sec)
+
+mysql> SELECT * FROM slaesman
+    -> ;
+ERROR 1146 (42S02): Table 'db.slaesman' doesn't exist
+mysql> SELECT * FROM salesman;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James Hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
++-------------+------------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM salesman;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James Hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
++-------------+------------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE orders (
+    ->     ord_no INT PRIMARY KEY,
+    ->     purch_amt DECIMAL(10,2),
+    ->     ord_date DATE,
+    ->     customer_id INT,
+    ->     salesman_id INT,
+    ->     FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    ->     FOREIGN KEY (salesman_id) REFERENCES salesman(salesman_id)
+    -> );
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> INSERT INTO orders (ord_no, purch_amt, ord_date, customer_id, salesman_id) VALUES
+    -> (70001, 150.50, '2012-10-05', 3005, 5002),
+    -> (70009, 270.65, '2012-09-10', 3001, 5005),
+    -> (70002, 65.26,  '2012-10-05', 3002, 5001),
+    -> (70004, 110.50, '2012-08-17', 3009, 5003),
+    -> (70007, 948.50, '2012-09-10', 3005, 5002),
+    -> (70005, 2400.60,'2012-07-27', 3007, 5001),
+    -> (70008, 5760.00,'2012-09-10', 3002, 5001),
+    -> (70010, 1983.43,'2012-10-10', 3004, 5006);
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM orders;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |    150.50 | 2012-10-05 |        3005 |        5002 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70004 |    110.50 | 2012-08-17 |        3009 |        5003 |
+|  70005 |   2400.60 | 2012-07-27 |        3007 |        5001 |
+|  70007 |    948.50 | 2012-09-10 |        3005 |        5002 |
+|  70008 |   5760.00 | 2012-09-10 |        3002 |        5001 |
+|  70009 |    270.65 | 2012-09-10 |        3001 |        5005 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
++--------+-----------+------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> //////////////////////////////////////////////////////////////////////////////////////
+    ->
+    -> /////////////////////////////
+    ->
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '////////////////////////////////////////////////////////////////////////////////' at line 1
+mysql> SELECT salesman.name AS salesman_name,customer.cust_name AS customer_name,salesman.city AS city
+    -> FROM salesman
+    -> JOIN customer
+    -> ON salesman.city = customer.city;
++---------------+----------------+----------+
+| salesman_name | customer_name  | city     |
++---------------+----------------+----------+
+| Pit Alex      | Brad Guzan     | London   |
+| James Hoog    | Nick Rimando   | New York |
+| Mc Lyon       | Fabian Johnson | Paris    |
+| Nail Knite    | Fabian Johnson | Paris    |
+| James Hoog    | Brad Davis     | New York |
+| Pit Alex      | Julian Green   | London   |
++---------------+----------------+----------+
+6 rows in set (0.05 sec)
+
+mysql> SELECT salesman.name AS salesman_name
+    -> ^C
+mysql> ^C
+mysql> ^C
+mysql> SELECT salesman.name AS salesman_name,customer.cust_name
+    -> FROM salesman
+    -> JOIN customer
+    -> ON salesman.salesman.id = customer.salesman.id;
+ERROR 1054 (42S22): Unknown column 'salesman.salesman.id' in 'on clause'
+mysql> ON salesman.salesman.id = customer.salesman.id;^C
+mysql> ^C
+mysql>  SELECT salesman.name AS salesman_name,customer.cust_name
+    ->     -> FROM salesman
+    ->     -> JOIN customer
+    ->     -> JOIN customer^Z^Z^Z^C
+mysql> ^C
+mysql> /////////////////////////////////
+    ->
+    -> /////////////////////////////////////////////////////
+    ->
+    ->
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '/////////////////////////////////
+
+/////////////////////////////////////////////' at line 1
+mysql> SELECT salesman.name AS salesman_name, customer.cust_name AS customer_name
+    -> FROM customer
+    -> JOIN salesman
+    -> ON salesman.salesman_id = customer.salesman_id;
++---------------+----------------+
+| salesman_name | customer_name  |
++---------------+----------------+
+| James Hoog    | Nick Rimando   |
+| James Hoog    | Brad Davis     |
+| Nail Knite    | Graham Zusi    |
+| Nail Knite    | Julian Green   |
+| Lauson Hen    | Geoff Cameron  |
+| Pit Alex      | Brad Guzan     |
+| Mc Lyon       | Fabian Johnson |
+| Paul Adam     | Jozy Altidore  |
++---------------+----------------+
+8 rows in set (0.01 sec)
+
+mysql> ////////////^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ////////////////////////////////////////////////////////////////////////
+    -> ////////////////////////////////////////////////////////////////////////////////////;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '////////////////////////////////////////////////////////////////////////
+///////' at line 1
+mysql>
+mysql> SELECT salesman.name AS salesman_name, customer.cust_name AS customer_name,salesman.commission
+    -> FROM salesman
+    -> JOIN customer
+    -> ON salesman.salesman_id = customer.salesman_id
+    -> WHERE salesman.commission >= 0.12;
++---------------+----------------+------------+
+| salesman_name | customer_name  | commission |
++---------------+----------------+------------+
+| James Hoog    | Nick Rimando   |       0.15 |
+| James Hoog    | Brad Davis     |       0.15 |
+| Nail Knite    | Graham Zusi    |       0.13 |
+| Nail Knite    | Julian Green   |       0.13 |
+| Lauson Hen    | Geoff Cameron  |       0.12 |
+| Mc Lyon       | Fabian Johnson |       0.14 |
+| Paul Adam     | Jozy Altidore  |       0.13 |
++---------------+----------------+------------+
+7 rows in set (0.01 sec)
+
+mysql> //////////////////////////////////////////////////////////////////////^A^A^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^X^C
+mysql> //////////////////////////////////////////////////////////////////////
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '//////////////////////////////////////////////////////////////////////' at line 1
+mysql>
+mysql> SELECT customer.cust_name AS customer_name, salesman.name AS salesman_name,customer.city AS customer_city, salesman.city AS salesman_city, salesman.commission AS commission
+    -> FROM customer
+    -> JOIN salesman
+    -> ON customer.customer_id == salesman.salesman_id
+    -> WHERE salesman_city <> customer_city
+    -> AND salesman.commission > 0.12;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== salesman.salesman_id
+WHERE salesman_city <> customer_city
+AND salesman.commis' at line 4
+mysql> SELECT customer.cust_name AS customer_name, salesman.name AS salesman_name,customer.city AS customer_city, salesman.city AS salesman_city, salesman.commission AS commission
+    -> FROM salesman
+    -> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> SELECT customer.cust_name AS customer_name, salesman.name AS salesman_name,customer.city AS customer_city, salesman.city AS salesman_city, salesman.commission AS commission
+    -> FROM customer
+    -> JOIN salesman
+    -> ON customer.customer_id = salesman.salesman_id
+    -> WHERE salesman_city <> customer_city
+    -> AND salesman.commission > 0.12;
+ERROR 1054 (42S22): Unknown column 'salesman_city' in 'where clause'
+mysql> SELECT customer.cust_name AS customer_name,
+    ->        salesman.name AS salesman_name,
+    ->        customer.city AS customer_city,
+    ->        salesman.city AS salesman_city,
+    ->        salesman.commission
+    -> FROM customer
+    -> JOIN salesman
+    -> ON customer.salesman_id = salesman.salesman_id
+    -> WHERE salesman.city <> customer.city
+    ->   AND salesman.commission > 0.12;
++---------------+---------------+---------------+---------------+------------+
+| customer_name | salesman_name | customer_city | salesman_city | commission |
++---------------+---------------+---------------+---------------+------------+
+| Graham Zusi   | Nail Knite    | California    | Paris         |       0.13 |
+| Julian Green  | Nail Knite    | London        | Paris         |       0.13 |
+| Jozy Altidore | Paul Adam     | Moscow        | Rome          |       0.13 |
++---------------+---------------+---------------+---------------+------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT orders.ord_no AS order_number,orders.ord_date AS order_name,orders.purch_amt AS order_amount,customer.cust_name AS customer_name,salesman.name AS salesman_name , salesman.commission AS commission , (orders.purch_amt*salesman.commission) AS commission_amount
+    -> FROM orders
+    -> JOIN customer
+    -> ON orders.customer_id = customer.customer_id
+    -> JOIN salesman
+    -> ON orders.salesman_id = salesman.salesman_id;
++--------------+------------+--------------+----------------+---------------+------------+-------------------+
+| order_number | order_name | order_amount | customer_name  | salesman_name | commission | commission_amount |
++--------------+------------+--------------+----------------+---------------+------------+-------------------+
+|        70002 | 2012-10-05 |        65.26 | Nick Rimando   | James Hoog    |       0.15 |            9.7890 |
+|        70005 | 2012-07-27 |      2400.60 | Brad Davis     | James Hoog    |       0.15 |          360.0900 |
+|        70008 | 2012-09-10 |      5760.00 | Nick Rimando   | James Hoog    |       0.15 |          864.0000 |
+|        70001 | 2012-10-05 |       150.50 | Graham Zusi    | Nail Knite    |       0.13 |           19.5650 |
+|        70007 | 2012-09-10 |       948.50 | Graham Zusi    | Nail Knite    |       0.13 |          123.3050 |
+|        70004 | 2012-08-17 |       110.50 | Geoff Cameron  | Lauson Hen    |       0.12 |           13.2600 |
+|        70009 | 2012-09-10 |       270.65 | Brad Guzan     | Pit Alex      |       0.11 |           29.7715 |
+|        70010 | 2012-10-10 |      1983.43 | Fabian Johnson | Mc Lyon       |       0.14 |          277.6802 |
++--------------+------------+--------------+----------------+---------------+------------+-------------------+
+8 rows in set (0.02 sec)
+
+mysql> ///////////////////////////////////////////////////////////////////////////////////////////////
+    ->
+    ->
+    -> ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '////////////////////////////////////////////////////////////////////////////////' at line 1
+mysql>
+mysql>
+mysql> SELECT orders.ord_no AS order_number,orders.ord_date AS order_date, orders.purch_amt AS order_amount,
+    -> customer.customer_id AS customer_id , customer.cust_name AS customer_name, customer.city AS customer_city, customer.garde as customer_grade
+    -> ,salesman.salesman_id AS salesman_id,salesman.name AS salesman_name,salesman.city AS salesman_city,salesman.commission AS salesman_commission
+    -> FROM orders
+    -> JOIN customer
+    -> ON orders.salesman_id == customer.customer_id
+    -> JOIN salesman
+    -> JOIN customer^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> SELECT orders.ord_no AS order_number,
+    ->        orders.ord_date AS order_date,
+    ->        orders.purch_amt AS order_amount,
+    ->        customer.customer_id,
+    ->        customer.cust_name AS customer_name,
+    ->        customer.city AS customer_city,
+    ->        customer.grade,
+    ->        salesman.salesman_id,
+    ->        salesman.name AS salesman_name,
+    ->        salesman.city AS salesman_city,
+    ->        salesman.commission
+    -> FROM orders
+    -> JOIN customer
+    -> ON orders.customer_id = customer.customer_id
+    -> JOIN salesman
+    -> ON orders.salesman_id = salesman.salesman_id;
++--------------+------------+--------------+-------------+----------------+---------------+-------+-------------+---------------+---------------+------------+
+| order_number | order_date | order_amount | customer_id | customer_name  | customer_city | grade | salesman_id | salesman_name | salesman_city | commission |
++--------------+------------+--------------+-------------+----------------+---------------+-------+-------------+---------------+---------------+------------+
+|        70002 | 2012-10-05 |        65.26 |        3002 | Nick Rimando   | New York      |   100 |        5001 | James Hoog    | New York      |       0.15 |
+|        70005 | 2012-07-27 |      2400.60 |        3007 | Brad Davis     | New York      |   200 |        5001 | James Hoog    | New York      |       0.15 |
+|        70008 | 2012-09-10 |      5760.00 |        3002 | Nick Rimando   | New York      |   100 |        5001 | James Hoog    | New York      |       0.15 |
+|        70001 | 2012-10-05 |       150.50 |        3005 | Graham Zusi    | California    |   200 |        5002 | Nail Knite    | Paris         |       0.13 |
+|        70007 | 2012-09-10 |       948.50 |        3005 | Graham Zusi    | California    |   200 |        5002 | Nail Knite    | Paris         |       0.13 |
+|        70004 | 2012-08-17 |       110.50 |        3009 | Geoff Cameron  | Berlin        |   100 |        5003 | Lauson Hen    | San Jose      |       0.12 |
+|        70009 | 2012-09-10 |       270.65 |        3001 | Brad Guzan     | London        |   200 |        5005 | Pit Alex      | London        |       0.11 |
+|        70010 | 2012-10-10 |      1983.43 |        3004 | Fabian Johnson | Paris         |   300 |        5006 | Mc Lyon       | Paris         |       0.14 |
++--------------+------------+--------------+-------------+----------------+---------------+-------+-------------+---------------+---------------+------------+
+8 rows in set (0.02 sec)
+
+mysql>

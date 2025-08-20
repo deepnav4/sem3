@@ -203,7 +203,7 @@ mysql> SELECT MIN(purch_amt) AS min_purchase_amt FROM Sales;
 
 mysql> SELECT customer_id,MAX(purch_amt) FROM SALES GROUP BY customer_id;
 +-------------+----------------+
-| customer_id | MAX(purch_amt) |
+| customer_id | MAX(purxch_amt) |
 +-------------+----------------+
 |        3005 |          948.5 |
 |        3001 |         270.65 |
