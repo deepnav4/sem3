@@ -1,0 +1,576 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Navdeep Singh}
+\lhead{OOP Assignment 4}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+\pagestyle{fancy}
+\fancyfoot[C]{\textcolor[gray]{0.7}{Roll No: 24124073}} % faint footer
+
+\begin{document}
+
+% ---------- Custom Title Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \bfseries Object Oriented Programming Lab \par}
+    \vspace{0.5cm}
+    {\LARGE \bfseries Assignment 4 \par}
+    \vspace{2.5cm}
+    {\Large Submitted by: \par}
+    \vspace{0.3cm}
+    {\large \textbf{Navdeep Singh} \par}
+    \vspace{0.3cm}
+    {\large \textbf{19th August 2025} \par}
+    \vspace{0.3cm}
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year
+    \vfill
+\end{titlepage}
+
+
+% ---------- Start of Questions ----------
+% Paste your \section*{1. ...}, \subsection*{Code}, etc. from here onward
+
+
+
+%----------------------------------------
+\section*{Practice Question to parctice class and scope of static varible declared as member function or declared as globally !! }
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include<bits/stdc++.h>
+using namespace std;
+
+class Student{
+    int id;
+    int marks;
+    static int count;  // Static member inside class
+
+public:
+    void display(){
+        cout <<"id "<< id << endl;
+        cout <<"marks : " << marks << endl;
+        count++;
+        cout << "Count: " << count << endl;
+    }
+
+    void setValues(int a , int m ){
+        id = a ;
+        marks =  m ;
+    }
+};
+
+// Definition of static member
+int Student::count = 0;
+
+int main(){
+    Student s1;
+    s1.setValues(1 , 98) ;
+    s1.display();
+    s1.display();
+    s1.display();
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+id 1
+marks : 98
+Count: 1
+id 1
+marks : 98
+Count: 2
+id 1
+marks : 98
+Count: 3
+\end{lstlisting}
+\section{Assignment 4 V1}  
+%----------------------------------------
+\section*{Q1. Write a C++ program to define a class named \textbf{BankAccount} that performs the following operations:}
+
+\begin{itemize}
+    \item Declare a static data member named \texttt{totalAccounts} to keep track of the total number of bank accounts created.
+    \item Declare a non-static data member named \texttt{accountNumber} to store the account number of each individual account.
+    \item Define a public member function named \texttt{setAccountNumber()} that:
+    \begin{itemize}
+        \item Accepts an account number as a parameter.
+        \item Sets the \texttt{accountNumber} for the object.
+        \item Increments the \texttt{totalAccounts} counter each time it is called.
+    \end{itemize}
+    \item Define a member function named \texttt{showTotalAccounts()} that displays the total number of accounts created by accessing the static variable.
+\end{itemize}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+static int totalAccounts; // declartion of global static variable
+
+class BankAccount{
+    int accountNo;
+
+    public :
+        void setAccountNumber(int no){
+            accountNo = no;
+            totalAccounts++;
+        }
+
+        void showTotalAccounts(){
+            cout<< "Total Account Number : " <<totalAccounts;
+        }
+};
+
+
+int main1(){
+    BankAccount b1;
+    b1.setAccountNumber(94);
+    b1.setAccountNumber(95);
+    b1.setAccountNumber(96);
+    b1.setAccountNumber(97);
+    b1.showTotalAccounts();
+}
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Total Account Number : 4
+\end{lstlisting}
+
+
+\section*{Q2. Write a C++ program that defines a class \textbf{User} to simulate user registration in a system, with the following requirements:}
+
+\begin{itemize}
+    \item Define a static data member \texttt{nextID} to keep track of the next available unique user ID (starting from 1000).
+    \item Define a non-static data member \texttt{userID} to store the ID of each registered user.
+    \item Create a member function \texttt{registerUser()} that:
+    \begin{itemize}
+        \item Assigns the current \texttt{nextID} value to the \texttt{userID} of the object.
+        \item Increments \texttt{nextID} so the next user gets a new ID.
+    \end{itemize}
+    \item Create a member function \texttt{showUser()} to display the \texttt{userID} of the object.
+    \item Create another member function \texttt{showNextID()} that displays the next user ID to be assigned (by accessing the static data member).
+\end{itemize}
+
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class User{
+    public:
+        static int nextId; // static varible declared as data member but its value should be declared outside the function
+
+        int userId;
+        int temp = nextId;
+        User(){
+            userId = nextId;
+            nextId++;
+        }
+
+        void registerUser(){
+            userId = nextId;
+            nextId++;
+            cout<<"User Registered with ID : " <<userId <<endl;
+        }
+
+        void showUser(){
+            cout<<"User id of the current user : "<<userId <<endl;
+        }
+
+        void showNextId(){
+            cout<<"Next User id to be assigned to the user is : " <<nextId <<endl;
+        }
+};
+
+
+int User :: nextId = 1000; // value initilzed of static data member 
+
+int main2(){
+    User s1;
+    s1.showUser();
+    s1.registerUser();
+    s1.registerUser();
+    s1.registerUser();
+    s1.showUser();
+    s1.showNextId();
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+User id of the current user : 1000
+User Registered with ID : 1001
+User Registered with ID : 1002
+User Registered with ID : 1003
+User id of the current user : 1003
+Next User id to be assigned to the user is : 1004
+\end{lstlisting}
+
+\section{Assignment 4 V2}  
+
+\section*{Q3. Write a C++ program to define a class named \textbf{LibraryBook} to manage 
+book registrations in a library. The class should perform the following:}
+
+\begin{itemize}
+    \item Declare a static data member \texttt{totalBooks} to count how many books have been registered.
+    \item Declare a non-static data member \texttt{bookID} to hold each book’s unique ID.
+    \item Create a member function \texttt{registerBook()} that:
+    \begin{itemize}
+        \item Accepts a book ID as a parameter.
+        \item Assigns it to the current object's \texttt{bookID}.
+        \item Increments the static \texttt{totalBooks} counter.
+    \end{itemize}
+    \item Define a member function \texttt{displayBook()} to display the book’s ID.
+    \item Define another non-static member function \texttt{displayTotalBooks()} that displays the current value of \texttt{totalBooks}.
+\end{itemize}
+
+In the \texttt{main()} function:
+\begin{itemize}
+    \item Create at least four objects of the \texttt{LibraryBook} class.  
+    \item Register a book for each object using the \texttt{registerBook()} function, assigning a different book ID to each.  
+    \item Display the book ID of each object using the \texttt{displayBook()} function.  
+    \item Using any one of the objects, display the total number of books registered by calling the \texttt{displayTotalBooks()} function.  
+\end{itemize}
+
+
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class LibraryBook {
+    static int totalBooks;   // static member
+    int bookID;              // non-static member
+
+    public:
+        // Register a book with given ID
+        void registerBook(int bookID) {
+            this->bookID = bookID;
+            totalBooks++;
+        }
+
+        // Display book ID
+        void displayBook() {
+            cout << "Book ID: " << bookID << endl;
+        }
+
+        // Display total number of books registered
+        void displayTotalBooks() {
+            cout << "Total Books: " << totalBooks << endl;
+        }
+};
+
+// Define and initialize static member
+int LibraryBook::totalBooks = 0;
+
+int main() {
+    // Create 4 objects
+    LibraryBook b1, b2, b3, b4;
+
+    // regsitering books
+    b1.registerBook(217);
+    b2.registerBook(318);
+    b3.registerBook(765);
+    b4.registerBook(654);
+
+    // Display each book ID
+    b1.displayBook();
+    b2.displayBook();
+    b3.displayBook();
+    b4.displayBook();
+
+    b1.displayTotalBooks();
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Book ID: 217
+Book ID: 318
+Book ID: 765
+Book ID: 654
+Total Books: 4
+\end{lstlisting}
+
+ 
+\section*{Q4. Write a C++ program that defines a class \textbf{OnlineOrder} to manage customer orders with the following specifications:}
+
+\begin{itemize}
+    \item Define a static data member \texttt{orderCount} to track the number of orders.
+    \item Define a non-static data member \texttt{orderNumber}.
+    \item Create a non-static member function \texttt{placeOrder()} that:
+    \begin{itemize}
+        \item Sets \texttt{orderNumber} to the current value of \texttt{orderCount + 1}.
+        \item Increments \texttt{orderCount}.
+    \end{itemize}
+    \item Define another function \texttt{showOrder()} to display the \texttt{orderNumber}.
+    \item Define a non-static member function \texttt{showOrderCount()} to display the current total order count using the static member.
+\end{itemize}
+
+In the \texttt{main()} function:
+\begin{itemize}
+    \item Create at least four objects of the \texttt{OnlineOrder} class.
+    \item Call the \texttt{placeOrder()} function for each object to simulate placing an order.
+    \item Display the order details of each object using the \texttt{showOrder()} function.
+    \item Using any one of the objects, display the total number of orders placed by calling the \texttt{showOrderCount()} function.
+\end{itemize}
+
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class OnlineOrder {
+    static int orderCount;   // Static member to track total orders
+    int orderNumber;         // Each object's order number
+
+public:
+    // Place an order
+    void placeOrder() {
+        orderNumber = orderCount + 1;  // Set order number
+        orderCount++;                  // Increment total orders
+    }
+
+    // Show order number
+    void showOrder() {
+        cout << "Order Number: " << orderNumber << endl;
+    }
+
+    // Show total order count
+    void showOrderCount() {
+        cout << "Total Orders: " << orderCount << endl;
+    }
+};
+
+// Initialize static member
+int OnlineOrder::orderCount = 0;
+
+int main() {
+    // Create 4 objects
+    OnlineOrder o1, o2, o3, o4;
+
+    // Place orders
+    o1.placeOrder();
+    o2.placeOrder();
+    o3.placeOrder();
+    o4.placeOrder();
+
+    // Show order details
+    o1.showOrder();
+    o2.showOrder();
+    o3.showOrder();
+    o4.showOrder();
+
+    // Show total orders using one object
+    o1.showOrderCount();
+
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Order Number: 1
+Order Number: 2
+Order Number: 3
+Order Number: 4
+Total Orders: 4
+\end{lstlisting}
+
+\section{Assignment 4 V3} 
+\section*{Q5. Write a C++ program to define a class named \textbf{Student} that assigns roll numbers to students automatically:}
+
+\begin{itemize}
+    \item Declare a static data member named \texttt{nextRoll} initialized to 1.
+    \item Declare a non-static data member named \texttt{rollNo}.
+    \item Define a public member function named \texttt{assignRoll()} that:
+    \begin{itemize}
+        \item Assigns \texttt{nextRoll} to \texttt{rollNo}.
+        \item Increments \texttt{nextRoll}.
+    \end{itemize}
+    \item Define a member function named \texttt{showRoll()} that displays the roll number of the student.
+    \item Define a member function named \texttt{showNextRoll()} that displays the next roll number to be assigned by accessing the static variable.
+    \item In the \texttt{main()} function:
+    \begin{itemize}
+        \item Create at least five \textbf{Student} objects.
+        \item Call the \texttt{assignRoll()} function for each object to assign a roll number.
+        \item Display each student’s roll number using the \texttt{showRoll()} function.
+        \item Using any one object, display the next roll number using the \texttt{showNextRoll()} function.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Student {
+private:
+    static int nextRoll;  // static data member
+    int rollNo;           // non-static data member
+
+public:
+    void assignRoll() {
+        rollNo = nextRoll;
+        nextRoll++;
+    }
+
+    void showRoll() {
+        cout << "Student Roll Number: " << rollNo << endl;
+    }
+
+    void showNextRoll() {
+        cout << "Next Roll Number will be: " << nextRoll << endl;
+    }
+};
+
+// initializing static member
+int Student::nextRoll = 1;
+
+int main() {
+    // creating objects
+    Student s1, s2, s3, s4, s5;
+
+    // assigning roll numbers
+    s1.assignRoll();
+    s2.assignRoll();
+    s3.assignRoll();
+    s4.assignRoll();
+    s5.assignRoll();
+
+    // displaying roll numbers
+    s1.showRoll();
+    s2.showRoll();
+    s3.showRoll();
+    s4.showRoll();
+    s5.showRoll();
+
+    // showing next roll number
+    s3.showNextRoll();
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Student Roll Number: 1
+Student Roll Number: 2
+Student Roll Number: 3
+Student Roll Number: 4
+Student Roll Number: 5
+Next Roll Number will be: 6
+\end{lstlisting}
+
+
+\section*{Q6. Write a C++ program to define a class named \textbf{Product} to simulate product registration in an inventory system:}
+
+\begin{itemize}
+    \item Declare a static data member named \texttt{nextProductID} starting from 500.
+    \item Declare a non-static data member named \texttt{productID} to store the unique ID of each product.
+    \item Define a member function named \texttt{registerProduct()} that:
+    \begin{itemize}
+        \item Assigns \texttt{nextProductID} to the object’s \texttt{productID}.
+        \item Increments \texttt{nextProductID} for the next product registration.
+    \end{itemize}
+    \item Define a member function named \texttt{showProductID()} that displays the product’s assigned ID.
+    \item Define a member function named \texttt{showUpcomingID()} that displays the next product ID to be assigned by accessing the static variable.
+    \item In the \texttt{main()} function:
+    \begin{itemize}
+        \item Create at least four \textbf{Product} objects.
+        \item Call the \texttt{registerProduct()} function for each object to assign an ID.
+        \item Display each product’s ID using the \texttt{showProductID()} function.
+        \item Display the upcoming product ID using the \texttt{showUpcomingID()} function.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Product {
+private:
+    static int nextProductID; // static data member
+    int productID;            // non-static data member
+
+public:
+    void registerProduct() {
+        productID = nextProductID;
+        nextProductID++;
+    }
+
+    void showProductID() {
+        cout << "Product ID: " << productID << endl;
+    }
+
+    void showUpcomingID() {
+        cout << "Next Product ID will be: " << nextProductID << endl;
+    }
+};
+
+// initializing static member
+int Product::nextProductID = 500;
+
+int main() {
+    // creating objects
+    Product p1, p2, p3, p4;
+
+    // registering products
+    p1.registerProduct();
+    p2.registerProduct();
+    p3.registerProduct();
+    p4.registerProduct();
+
+    // displaying product IDs
+    p1.showProductID();
+    p2.showProductID();
+    p3.showProductID();
+    p4.showProductID();
+
+    // showing upcoming ID
+    p2.showUpcomingID();
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Product ID: 500
+Product ID: 501
+Product ID: 502
+Product ID: 503
+Next Product ID will be: 504
+\end{lstlisting}
+\begin{center}
+\textbf{***** END OF ASSIGNMENT *****}
+\end{center}
+
+\end{document}

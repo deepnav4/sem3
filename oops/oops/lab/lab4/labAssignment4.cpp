@@ -133,10 +133,168 @@ int main2(){
     s1.showNextId();
 }
 
-int main(){
-    // main1();
-    main2();
+// int main(){
+//     // main1();
+//     main2();
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Q1. Write a C++ program to define a class named LibraryBook to manage book
+// registrations in a library. The class should perform the following:
+// i. Declare a static data member totalBooks to count how many books have been
+// registered.
+// ii. Declare a non-static data member bookID to hold each book’s unique ID.
+// iii. Create a member function registerBook() that:
+// a. Accepts a book ID as a parameter.
+// b. Assigns it to the current object's bookID.
+// c. Increments the static totalBooks counter.
+// iv. Define a member function displayBook() to display the book’s ID.
+// v. Define another non-static member function displayTotalBooks() that:
+// a. Displays the current value of totalBooks by accessing the static data
+// member.
+// In the main() function:
+// i. Write a command to create at least four objects of the LibraryBook class in the
+// main() function?
+// ii. Write the necessary commands to register a book for each object using the
+// registerBook() function, assigning a different book ID to each.
+// iii. Write the commands to display the book ID of each object using the displayBook()
+// function.
+// iv. Using any one of the objects, write the command to display the total number of
+// books registered by calling the displayTotalBooks() function.
+
+
+class LibraryBook {
+    static int totalBooks;   // static member
+    int bookID;              // non-static member
+
+    public:
+        // Register a book with given ID
+        void registerBook(int bookID) {
+            this->bookID = bookID;
+            totalBooks++;
+        }
+
+        // Display book ID
+        void displayBook() {
+            cout << "Book ID: " << bookID << endl;
+        }
+
+        // Display total number of books registered
+        void displayTotalBooks() {
+            cout << "Total Books: " << totalBooks << endl;
+        }
+};
+
+// Define and initialize static member
+int LibraryBook::totalBooks = 0;
+
+int main34() {
+    // Create 4 objects
+    LibraryBook b1, b2, b3, b4;
+
+    // regsitering books
+    b1.registerBook(217);
+    b2.registerBook(318);
+    b3.registerBook(765);
+    b4.registerBook(654);
+
+    // Display each book ID
+    b1.displayBook();
+    b2.displayBook();
+    b3.displayBook();
+    b4.displayBook();
+
+    b1.displayTotalBooks();
+
+    return 0;
 }
 
 
 
+
+
+
+
+
+// Q2. Write a C++ program that defines a class OnlineOrder to manage customer orders
+// with the following specifications:
+// i. Define a static data member orderCount to track the number of orders.
+// ii. Define a non-static data member orderNumber.
+// iii. Create a non-static member function placeOrder() that:
+// a. Sets orderNumber to the current value of orderCount + 1.
+// b. Increments orderCount.
+// iv. Define another function showOrder() to display the orderNumber.
+// v. Define a non-static member function showOrderCount() to display the current
+// total order count using the static member.
+// In the main() function:
+// i. Write a command to create at least four objects of the LibraryBook class in the
+// main() function?
+// ii. Write the necessary commands to call the placeOrder() function for each object to
+// simulate placing an order.
+// iii. Write the commands to display the order details of each object using the
+// showOrder() function.
+// iv. Using any one of the objects, write the command to display the total number of
+// orders placed by calling the showOrderCount() function.
+
+
+#include <iostream>
+using namespace std;
+
+class OnlineOrder {
+    static int orderCount;   // Static member to track total orders
+    int orderNumber;         // Each object's order number
+
+public:
+    // Place an order
+    void placeOrder() {
+        orderNumber = orderCount + 1;  // Set order number
+        orderCount++;                  // Increment total orders
+    }
+
+    // Show order number
+    void showOrder() {
+        cout << "Order Number: " << orderNumber << endl;
+    }
+
+    // Show total order count
+    void showOrderCount() {
+        cout << "Total Orders: " << orderCount << endl;
+    }
+};
+
+// Initialize static member
+int OnlineOrder::orderCount = 0;
+
+int main() {
+    // Create 4 objects
+    OnlineOrder o1, o2, o3, o4;
+
+    // Place orders
+    o1.placeOrder();
+    o2.placeOrder();
+    o3.placeOrder();
+    o4.placeOrder();
+
+    // Show order details
+    o1.showOrder();
+    o2.showOrder();
+    o3.showOrder();
+    o4.showOrder();
+
+    // Show total orders using one object
+    o1.showOrderCount();
+
+    return 0;
+}
