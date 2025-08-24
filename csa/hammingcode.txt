@@ -1,0 +1,38 @@
+Solve the following questions in your tutorial notebook with a detailed explanation if necessary.
+Q 1. The representation of bit code into bit, even parity Hamming code is
+A. 1010101
+B. 1111001
+C. 1011101
+D. 1110000
+Q 2. The most common hamming codes are a generalized version of?
+a) Hamming(7, 4) code
+b) Hamming(8, 4) code
+c) Hamming(6, 3) code
+d) Hamming(5, 7) code
+Q 3. What is the minimal Hamming distance between any two correct codewords?
+a) 1
+b) 2
+c) 3
+d) 4
+Q 4. What is the total block length ‘n’ of a Hamming code?
+a) 2r
+b) 2r
+-1
+c) 2r-1
+-1
+d) 2r+1
+Q 5. An Extended hamming code is also called as __________
+a) SEDDEC
+b) SEDDED
+c) SECDED
+d) SECDEC
+Q 6. For a hamming code of parity bit m=8, what is the total bits and data bits?
+a) (255, 247)
+b) (127, 119)
+c) (31, 26)
+d) (0, 8)
+Q 7. What is the rate of the hamming code of parity bit m=8?
+a) 0.94
+b) 0.92
+c) 0.90
+d) 0.97
