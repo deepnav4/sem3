@@ -56,7 +56,7 @@ void rotateKtimes1(vector<int>&nums,int k){
 }
 
 
-int main1(){
+int main(){
     vector<int>nums = {1,2,3,4,5};
     vector<int>temp(nums.size());
     int k = 7;
@@ -135,6 +135,7 @@ int main1(){
 // 𝑂(𝑁⋅𝐷)O(N⋅D) where D is number of digits per number
 
 
+// sum of all digits one loop num.size() complexity
 int sum(int num){
     int total = 0;
     while(num > 0){
@@ -144,6 +145,7 @@ int sum(int num){
     return total;
 }
 
+// counting pairs using nested loops matching each pairs basically comlexity is n square where n is nums.size() and no extra space
 int countSpecialPairs1(vector<int>& nums) {
     int n = nums.size();
     int count = 0;
@@ -157,6 +159,9 @@ int countSpecialPairs1(vector<int>& nums) {
     return count;
 }
 
+
+// counting pairs with hashmaps first store that paricular sum has that number of pairs then use combination formula
+// O n compelxity using 1 for loop and using maps also 0n
 int countSpecialPairs2(vector<int>&nums){
     int n = nums.size();
     int ans = 0;
@@ -172,17 +177,13 @@ int countSpecialPairs2(vector<int>&nums){
     return ans;
 }
 
-int main2(){
+int main(){
     vector<int>nums = {23,32,14,41,50};
     cout<<countSpecialPairs2(nums);
 }
 
 
 
-int main(){
-    // main1();
-    main2();
-}
 
 
 
