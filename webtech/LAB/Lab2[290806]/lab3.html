@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Map with Hotspots</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style>
+    #map { height: 400px; width: 600px; }
+  </style>
+</head>
+<body>
+  <h2>Interactive Map Example</h2>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize map centered at Utnur
+    var map = L.map('map').setView([19.366, 78.6], 15);
+
+    // Load tiles (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Add hotspots
+    L.marker([30.125594635693584, 74.20258245767201]).addTo(map)
+      .bindPopup("<b>Navdeep Technologies</b><br>Abohar Punjab")
+      .openPopup();
+
+    // L.marker([19.368, 78.603]).addTo(map)
+    //   .bindPopup("<b>Amil Centering</b><br>Rental store in Utnur");
+
+    // L.marker([19.364, 78.598]).addTo(map)
+    //   .bindPopup("<b>Local Market</b><br>Popular shopping area.");
+  </script>
+</body>
+</html>

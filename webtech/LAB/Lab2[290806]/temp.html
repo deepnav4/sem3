@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Maps Hotspots Example</title>
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Google Map with Hotspots</h2>
+<div id="map"></div>
+
+<script>
+  function initMap() {
+    // Center the map on India
+    var centerPoint = { lat: 20.5937, lng: 78.9629 };
+
+    // Create map
+    var map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 4,
+      center: centerPoint
+    });
+
+    // Hotspots list
+    var hotspots = [
+      {
+        position: { lat: 28.6139, lng: 77.2090 },
+        title: "India",
+        info: "<h3>India</h3><p>Country in South Asia.</p>"
+      },
+      {
+        position: { lat: 37.0902, lng: -95.7129 },
+        title: "USA",
+        info: "<h3>USA</h3><p>Country in North America.</p>"
+      },
+      {
+        position: { lat: 51.5074, lng: -0.1278 },
+        title: "London",
+        info: "<h3>London</h3><p>Capital of the United Kingdom.</p>"
+      }
+    ];
+
+    // Create markers
+    hotspots.forEach(function(hotspot) {
+      var marker = new google.maps.Marker({
+        position: hotspot.position,
+        map: map,
+        title: hotspot.title
+      });
+
+      var infoWindow = new google.maps.InfoWindow({
+        content: hotspot.info
+      });
+
+      marker.addListener("click", function() {
+        infoWindow.open(map, marker);
+      });
+    });
+  }
+</script>
+
+<!-- Google Maps API (with your key) -->
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=(your key)&callback=initMap">
+</script>
+
+</body>
+</html>
