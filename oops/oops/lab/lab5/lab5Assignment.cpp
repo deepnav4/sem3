@@ -1,130 +1,97 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-
-
-class Point {
+// ------------------- SHALLOW COPY -------------------
+class Points1 {
 public:
-    int x, y;
-    Point(int a = 0, int b = 0) {
-        x = a;
-        y = b;
-        cout << "Constructor called for (" << x << ", " << y << ")" << endl;
+    int *x;
+
+    // Constructor
+    Points1(int a = 0) {
+        x = new int(a);
+        cout << "Constructor called, *x = " << *x << endl;
     }
 
-    Point(const Point &p) {
-        x = p.x;
-        y = p.y;
-        cout << "Copy constructor called for (" << x << ", " << y << ")" << endl;
+    // Default copy constructor (SHALLOW COPY)
+    // Compiler-generated: just copies the pointer address (not the value itself)
+
+    void setValue(int val) {
+        *x = val;
     }
 
-    // Display function
-    void display() { cout << "(" << x << ", " << y << ")" << endl; }
+    void display() {
+        cout << "Value = " << *x << " | Address = " << x << endl;
+    }
+
+    // Destructor
+    ~Points1() {
+        cout << "Destructor called for *x = " << *x << endl;
+        delete x;
+    }
 };
 
-int main(){
-    Point p1;
-    Point p2 = p1;
-    Point p2(p1);
-}
+// ------------------- DEEP COPY -------------------
+class Points2 {
+public:
+    int *x;
 
-// Function to demonstrate pass by value
-// void passByValue(Point p) {
-//     cout << "Inside passByValue: ";
-//     p.display();
-// }
+    // Constructor
+    Points2(int a = 0) {
+        x = new int(a);
+        cout << "Constructor called, *x = " << *x << endl;
+    }
 
-// // Function to demonstrate pass by reference
-// void passByReference(Point &p) {
-//     cout << "Inside passByReference: ";
-//     p.display();
-// }
+    // User-defined Copy Constructor (DEEP COPY)
+    Points2(const Points2 &p) {
+        x = new int(*p.x);  // allocate new memory and copy value
+        cout << "Deep Copy constructor called, *x = " << *x << endl;
+    }
 
-int main1() {
-    cout << "1. Direct Initialization" << endl;
-    Point p1(10, 20);  // Direct initialization
+    void setValue(int val) {
+        *x = val;
+    }
+
+    void display() {
+        cout << "Value = " << *x << " | Address = " << x << endl;
+    }
+
+    // Destructor
+    ~Points2() {
+        cout << "Destructor called for *x = " << *x << endl;
+        delete x;
+    }
+};
+
+int main() {
+    cout << "===== Shallow Copy Example =====" << endl;
+    Points1 p1(10);
+    Points1 p2 = p1;  // shallow copy (pointer copied, not value)
+
+    cout << "Before change:" << endl;
     p1.display();
-
-    cout << "\n2. Copy Initialization" << endl;
-    Point p2 = p1;     // Copy initialization
     p2.display();
 
-    cout << "\n3. Pass by Value" << endl;
-    // passByValue(p1);   // Calls copy constructor
+    p1.setValue(20);  // changing p1 also changes p2 because both share same memory
 
-    cout << "\n4. Pass by Reference" << endl;
-    // passByReference(p1); // No copy constructor called
+    cout << "After change in p1:" << endl;
+    p1.display();
+    p2.display();
 
-    cout << "\n5. Copy Assignment" << endl;
-    Point p3;          // Default constructor
-    p3 = p1;           // Copy assignment
-    p3.display();
+    cout << "\n===== Deep Copy Example =====" << endl;
+    Points2 q1(30);
+    Points2 q2 = q1;  // deep copy (separate memory)
+
+    cout << "Before change:" << endl;
+    q1.display();
+    q2.display();
+
+    q1.setValue(40);  // changing q1 does NOT affect q2
+
+    cout << "After change in q1:" << endl;
+    q1.display();
+    q2.display();
 
     return 0;
 }
 
-
-// Key Points
-// A copy constructor cannot have default arguments.
-// It takes exactly one parameter, which is a reference to the same class type.
-// The compiler provides a default copy constructor if none is defined, which performs a shallow copy.
-// Use a custom copy constructor when your class manages resources like dynamic memory to prevent issues like double deletion.
-
-
-
-
-class Tracker {
-    public:
-        int id; // unique id for each object
-
-    private:
-        static int count;   // number of active objects
-        static int nextId;  // next id to assign
-
-    public:
-        // Parameterized constructor
-        Tracker() {
-            id = nextId;       // assign unique id
-            nextId++;           // increment nextId for future objects
-            count++;            // increment active object count
-            cout << "Constructor called. ID = " << id << ", Count = " << count << endl;
-        }
-
-        // syntax className(const className &obj);
-        Tracker(const Tracker &obj) {
-            id = nextId;      
-            nextId++;
-            count++;          
-            cout << "Copy constructor called for id = " << id << " (copied from id = " << obj.id << ")" << endl;
-        }
-
-        ~Tracker() {
-            cout << "Destructor called for id = " << id << ", Count before destruction = " << count << endl;
-            count--;          
-        }
-
-        Tracker createTracker() {
-            Tracker temp; 
-            return temp; 
-        }
-
-        int getCount() {
-            return count;
-        }
-};
-
-void takeTracker(Tracker t) {
-    cout << "Inside takeTracker() function" << endl;
-    // cout << "Current active objects: " << Tracker::getCount() << endl;
-}
-
-Tracker createTracker() {
-    Tracker temp;
-    cout << "Inside createTracker() function" << endl;
-    // cout << "Current active objects: " << Tracker::getCount() << endl;
-    return temp; // Copy constructor may be called depending on compiler optimization (RVO)
-}
-
-int Tracker::count = 0;
-int Tracker::nextId = 1;
 

@@ -1,158 +1,165 @@
 #include <iostream>
 using namespace std;
 
+#include <iostream>
+using namespace std;
+
 class Tracker {
-    public:
-        int id;              // Unique ID for each object
-        string name;         // Example public member
+public:
+    int id;
+    string name;
 
-    private:
-        static int count;    // Active object count
-        static int nextId;   // Next available unique ID
+private:
+    static int count;    // number of active objects
+    static int nextId;   // gives a unique id to each new object
 
-    public:
-        // Parameterized constructor
-        Tracker(string n) {
-            id = nextId++;
-            name = n;
-            count++;
-            cout << "Constructor called. ID = " << id << ", Count = " << count << endl;
-        }
+public:
+    // constructor
+    Tracker(string n) {
+        id = nextId++;
+        name = n;
+        count++;
+        cout << "Object created: " << name << " (id = " << id << ")\n";
+    }
 
-        // Copy constructor
-        Tracker(const Tracker &other) {
-            id = nextId++;
-            name = other.name; // Copy other data if needed
-            count++;
-            cout << "Copy constructor called for id = " << id << " (copied from id = " << other.id << ")" << endl;
-        }
+    // copy constructor
+    Tracker(const Tracker &other) {
+        id = nextId++;
+        name = other.name; 
+        count++;
+        cout << "Copy made from id " << other.id << " to new id " << id << "\n";
+    }
 
-        // Destructor
-        ~Tracker() {
-            cout << "Destructor called for id = " << id << ", Count before destruction = " << count << endl;
-            count--;
-        }
+    // destructor
+    ~Tracker() {
+        cout << "Object destroyed: id = " << id << "\n";
+        count--;
+    }
 
-        // Function to get current active object count
-        static int getActiveCount() {
-            return count;
-        }
-    };
+    static int getActiveCount() {
+        return count;
+    }
+};
 
-// Initialize static members
+// static members
 int Tracker::count = 0;
 int Tracker::nextId = 1;
 
-// Function that creates and returns a Tracker object by value
-Tracker createTracker() {
-    Tracker t("CreatedByFunction");
+// returns an object
+Tracker makeOne() {
+    Tracker t("TempObj");
     return t;
 }
 
-// Function that accepts a Tracker object by value
-void takeTracker(Tracker t) {
-    cout << "Inside takeTracker function. ID = " << t.id << endl;
+// takes object by value
+void useOne(Tracker t) {
+    cout << "Using tracker with id = " << t.id << "\n";
 }
 
 int main1() {
-    cout << "Step 1: Creating two Tracker objects" << endl;
-    Tracker t1("Tracker1");
-    Tracker t2("Tracker2");
-    cout << "Active objects: " << Tracker::getActiveCount() << endl << endl;
+    cout << "Creating objects...\n";
+    Tracker a("First");
+    Tracker b("Second");
+    cout << "Active = " << Tracker::getActiveCount() << "\n\n";
 
-    cout << "Step 2: Copying one object" << endl;
-    Tracker t3 = t1; // Copy constructor
-    cout << "Active objects: " << Tracker::getActiveCount() << endl << endl;
+    cout << "Copying object...\n";
+    Tracker c = a;
+    cout << "Active = " << Tracker::getActiveCount() << "\n\n";
 
-    cout << "Step 3: Calling createTracker()" << endl;
-    Tracker t4 = createTracker(); // Returns by value, copy may be optimized
-    cout << "Active objects: " << Tracker::getActiveCount() << endl << endl;
+    cout << "Object returned from function...\n";
+    Tracker d = makeOne();
+    cout << "Active = " << Tracker::getActiveCount() << "\n\n";
 
-    cout << "Step 4: Passing object to takeTracker()" << endl;
-    takeTracker(t2); // Copy constructor called because pass by value
-    cout << "Active objects: " << Tracker::getActiveCount() << endl << endl;
+    cout << "Passing object to function...\n";
+    useOne(b);
+    cout << "Active = " << Tracker::getActiveCount() << "\n\n";
 
-    cout << "Step 5: Block scope creation" << endl;
+    cout << "Block scope demo...\n";
     {
-        Tracker t5("BlockTracker1");
-        Tracker t6("BlockTracker2");
-        cout << "Active objects inside block: " << Tracker::getActiveCount() << endl;
-    } // t5 and t6 destroyed here
-    cout << "Active objects after block: " << Tracker::getActiveCount() << endl << endl;
+        Tracker e("Block1");
+        Tracker f("Block2");
+        cout << "Active inside block = " << Tracker::getActiveCount() << "\n";
+    } // e and f destroyed here
+    cout << "Active after block = " << Tracker::getActiveCount() << "\n";
 
     return 0;
 }
 
 
+#include <iostream>
+using namespace std;
 
 class SessionManager {
 public:
     int sessionId;                  
-      static int activeSessions;      
-     static int nextSessionId;       
+    static int activeSessions;      
+    static int nextSessionId;       
 
-    // Default constructor
+    // constructor
     SessionManager() {
         sessionId = nextSessionId++;
         activeSessions++;
-        cout << "Session started. ID = " << sessionId << ", Active sessions = " << activeSessions << endl;
+        cout << "New session started (id = " << sessionId << ")\n";
     }
 
-    // Copy constructor
+    // copy constructor
     SessionManager(const SessionManager &other) {
         sessionId = nextSessionId++;
         activeSessions++;
-        cout << "Session duplicated. New ID = " << sessionId << " (copied from ID = " << other.sessionId << ")" << endl;
+        cout << "Session copied from id " << other.sessionId 
+             << " to new id " << sessionId << "\n";
     }
 
-    // Destructor
+    // destructor
     ~SessionManager() {
-        cout << "Session ended. ID = " << sessionId << ", Active sessions before ending = " << activeSessions << endl;
+        cout << "Session ended (id = " << sessionId << ")\n";
         activeSessions--;
     }
 
-    SessionManager startNewSession() {
+    // return new session
+    SessionManager makeSession() {
         SessionManager s;
         return s;
     }
 
-    void processSession(SessionManager s) {
-        cout << "Processing session ID = " << s.sessionId << endl;
+    // take session by value
+    void handle(SessionManager s) {
+        cout << "Handling session id = " << s.sessionId << "\n";
     }
 };
 
-// Initialize static members
+// initialize static members
 int SessionManager::activeSessions = 0;
 int SessionManager::nextSessionId = 1;
 
-int main2() {
-    cout << "Step 1: Create three SessionManager objects" << endl;
+int main() {
+    cout << "Creating a few sessions...\n";
     SessionManager s1, s2, s3;
-    cout << "Active sessions: " << SessionManager::activeSessions << endl << endl;
+    cout << "Currently active: " << SessionManager::activeSessions << "\n\n";
 
-    cout << "Step 2: Duplicate one session using copy constructor" << endl;
+    cout << "Copying a session...\n";
     SessionManager s4 = s2;
-    cout << "Active sessions: " << SessionManager::activeSessions << endl << endl;
+    cout << "Currently active: " << SessionManager::activeSessions << "\n\n";
 
-    cout << "Step 3: Call startNewSession()" << endl;
-    SessionManager s5 = s1.startNewSession();
-    cout << "Active sessions: " << SessionManager::activeSessions << endl << endl;
+    cout << "Starting a session from inside function...\n";
+    SessionManager s5 = s1.makeSession();
+    cout << "Currently active: " << SessionManager::activeSessions << "\n\n";
 
-    cout << "Step 4: Pass a session object to processSession()" << endl;
-    s3.processSession(s1); // Copy constructor triggered
-    cout << "Active sessions: " << SessionManager::activeSessions << endl << endl;
+    cout << "Passing session to a function...\n";
+    s3.handle(s1);
+    cout << "Currently active: " << SessionManager::activeSessions << "\n\n";
 
-    cout << "Step 5: Nested block with two more sessions" << endl;
+    cout << "Block scope example...\n";
     {
         SessionManager s6, s7;
-        cout << "Active sessions inside block: " << SessionManager::activeSessions << endl;
-    }
-    cout << "Active sessions after block: " << SessionManager::activeSessions << endl << endl;
+        cout << "Active inside block: " << SessionManager::activeSessions << "\n";
+    } // s6, s7 destroyed here
+    cout << "Active after block: " << SessionManager::activeSessions << "\n";
 
     return 0;
 }
 
 
-int main(){
-    main2();
-}
+// int main(){
+//     main2();
+// }
