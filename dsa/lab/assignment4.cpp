@@ -100,7 +100,7 @@ int search(int arr[],int key,int size){
     return -1;
 }
 
-int main2(){
+int main(){
     int arr[7] = {4,5,6,7,0,1,2};
     int size = 7;    
     int ans = -1;
@@ -126,9 +126,9 @@ int main1(){
     traverseArray(arr,size);
 }
 
-int main(){
-    main2();
-}
+// int main(){
+//     main2();
+// }
 
 
 
