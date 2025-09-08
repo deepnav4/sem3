@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="gamecanvas" style="border: 10px solid black; width: 1600px;" ></canvas>
+</body>
+<script>
+    let canvas = document.getElementById("gamecanvas");
+    let ctx = canvas.getContext("2d");
+
+    for(let i=0; i<1000000; i++){
+        ctx.beginPath();
+        ctx.rect(10,20+i,75,50);
+        ctx.fill();
+    }
+</script>
+</html>
