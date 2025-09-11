@@ -1,89 +1,109 @@
-#include <bits/stdc++.h>
+// Q1. Write a program with multiple classes, some of which are members of other classes, to
+// observe the order in which constructors and destructors are called during object creation and
+// destruction. You can use std::cout statements within the constructors and destructors to trace
+// their execution.
+
+#include <iostream>
 using namespace std;
 
-// Base class: Student
-class Student {
-private:   // private members: accessible only inside Student
-    int rollNo;
-
-protected: // protected members: accessible in derived classes
-    string name;
-
-public:    // public members: accessible everywhere
-    int age;
-
-    // Constructor
-    Student(string n, int r, int a) {
-        name = n;
-        rollNo = r;
-        age = a;
-    }
-
-    // Public method to access private member
-    void setRollNo(int r) { rollNo = r; }
-    int getRollNo() { return rollNo; }
- 
-    void showStudentInfo() {
-        cout << "Name: " << name << ", Roll No: " << rollNo << ", Age: " << age << endl;
-    }
+class class1 {
+    public:
+        class1() {
+            cout << "Constructor of class1 called" << endl;
+        }
+        ~class1() {
+            cout << "Destructor of class1 called" << endl;
+        }
 };
 
-// Derived class: ITStudent with different types of inheritance
-class ITStudent : public Student {  // public inheritance
-private:
-    int marks;
-
-public:
-    ITStudent(string n, int r, int a, int m) : Student(n, r, a) {
-        marks = m;
-    }
-
-    void showITInfo() {
-        // name is protected in base → accessible here
-        cout << "Name: " << name << ", Marks: " << marks << endl;
-        // age is public in base → accessible here
-        cout << "Age: " << age << endl;
-        // rollNo is private in base → not directly accessible
-        // cout << rollNo; // ❌ Error
-        cout << "Roll No (via getter): " << getRollNo() << endl;
-    }
+class class2 {
+    public:
+        class2() {
+            cout << "Constructor of class2 called" << endl;
+        }
+        ~class2() {
+            cout << "Destructor of class2 called" << endl;
+        }
 };
 
-// Another derived class: CSStudent with protected inheritance
-class CSStudent : protected Student {  // protected inheritance
-public:
-    int marks;
-
-    CSStudent(string n, int r, int a, int m) : Student(n, r, a) {
-        marks = m;
-    }
-
-    void showCSInfo() {
-        // name is protected → accessible
-        cout << "Name: " << name << ", Marks: " << marks << endl;
-        // age is public in base but becomes protected here due to protected inheritance
-        cout << "Age: " << age << endl;
-        cout << "Roll No (via getter): " << getRollNo() << endl;
-    }
+class class3 {
+    class2 b; 
+    class1 a; 
+    public:
+        class3() {
+            cout << "Constructor of class3 called" << endl;
+        }
+        ~class3() {
+            cout << "Destructor of class3 called" << endl;
+        }
 };
+
 
 int main() {
-    cout << "===== IT Student (public inheritance) =====" << endl;
-    ITStudent s1("Navdeep", 73, 19, 98);
-    s1.showITInfo();
+    cout << "Creating object constrcurtor" << endl;
+    class3 c;   
+    cout << "Object created." << endl;
 
-    cout << "\n===== CS Student (protected inheritance) =====" << endl;
-    CSStudent s2("Aman", 101, 20, 95);
-    s2.showCSInfo();
-
-    // Access from main
-    cout << "\nAccessing members from main:" << endl;
-    // s1.name → ❌ protected → not accessible outside
-    cout << "s1.age = " << s1.age << endl;  // public → accessible
-    cout << "s1.getRollNo() = " << s1.getRollNo() << endl;
-
-    // s2.age → ❌ protected due to protected inheritance → not accessible
-    // s2.name → ❌ protected → not accessible
-
+    cout << "Exiting destrcutor called" << endl;
     return 0;
+}
+
+
+
+
+class Base{
+    private:
+        string s;
+        int age;
+
+    protected:
+        char gender;    
+
+    public:
+        void getBasicInfo(void){
+            cout<<s<<endl;
+            cout<<age<<endl;
+            cout<<gender<<endl;
+        }
+
+        void putBasicInfo(void){
+            cout<<"Enter Name : ";
+            cin>>s;
+            cout<<"Enter Age : ";
+            cin>>age;
+            cout<<"Enter Gender : ";
+            cin>>gender;
+        }
+};
+
+
+class Derived:public Base{
+    private:
+        int totalM;
+        float perc;
+        char grade;
+
+    public:
+        void getResultInfo(void){
+            //  cout<<s<<endl; // private member in base class
+            // cout<<age<<endl;  // private member in base class
+            // cout<<gender<<endl;  // can be accessed in parent class protected member
+        };
+        void putResultInfo(void){
+            cout<<"Enter Total Marks : ";
+            cin>>totalM;
+            cout<<"Enter Percentage : ";
+            cin>>perc;
+            cout<<"Enter Grade : ";
+            cin>>grade;
+        };
+};
+
+int main2(){
+    // Derived d;
+    Base B;
+    B.putBasicInfo();
+    B.getBasicInfo();
+    // d.putResultInfo();
+    // d.getResultInfo();
 }
