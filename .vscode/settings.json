@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.csv": "bat",
+        "iostream": "cpp",
+        "ostream": "cpp"
+    }
+}
