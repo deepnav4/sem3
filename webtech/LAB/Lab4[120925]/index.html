@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background: #f4f4f4;
+        }
+        #display {
+            width: 240px;
+            height: 40px;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #888;
+            border-radius: 5px;
+            text-align: right;
+            background: #fff;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 1em;
+            border: 1px solid #888;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #eaeaea;
+        }
+        button:hover {
+            background: #dcdcdc;
+        }
+        #result {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            width: 260px;
+            gap: 10px;
+            justify-content: center;
+        }
+        .btns {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #888;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: #fff;
+            font-size: 1.2em;
+            user-select: none;
+        }
+        .btns:hover {
+            background: #dcdcdc;
+        }
+        .btns{
+            border: none;
+            outline: 0;
+        }
+        .btns::before {
+            content: "👉 ";
+            color: blue;
+        }
+        .btns::first-line {
+            color: green;
+            font-weight: bold;
+        }
+
+            /* Style the first letter */
+        .btns::first-letter {
+            font-size: 40px;
+            color: red;
+        }
+    </style>
+    <script>
+        function evaluateExp(){
+            let num1, num2, result;
+            let expression = document.getElementById("display").value;
+
+            for(let i=0; i<expression.length; i++){
+                if(expression[i] === '+' || expression[i] === '-' || expression[i] === '*' || expression[i] === '/'){
+                    num1 = parseFloat(expression.substring(0,i));
+                    num2 = parseFloat(expression.substring(i+1));
+
+                    if(expression[i] === '+'){
+                        result = num1 + num2;
+                    } else if(expression[i] === '-'){
+                        result = num1 - num2;
+                    } else if(expression[i] === '*'){
+                        result = num1 * num2;
+                    } else if(expression[i] === '/'){
+                        result = num1 / num2;
+                    }
+                }
+            }
+            document.getElementById("display").value = result;
+            document.getElementById("result").innerText = "Result : " + result;
+        }
+
+        function clearAll(){
+            document.getElementById("display").value = '';
+            document.getElementById("result").innerText = 'Result : ';
+        }
+
+        function appendInInput(value){
+            document.getElementById("display").value += value;
+        }
+
+        function revertOne(){
+            let str = document.getElementById("display").value;
+            str = str.substring(0, str.length - 1);
+            document.getElementById("display").value = str;
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="display">
+    <button onclick="evaluateExp()">Eval</button>
+    <button onclick="clearAll()">Clear</button>
+    <div id="result">Result : </div>
+
+    <div class="buttons">
+        <div class="btns" onclick="appendInInput('1')">1</div>
+        <div class="btns" onclick="appendInInput('2')">2</div>
+        <div class="btns" onclick="appendInInput('3')">3</div>
+        <div class="btns" onclick="appendInInput('4')">4</div>
+        <div class="btns" onclick="appendInInput('5')">5</div>
+        <div class="btns" onclick="appendInInput('6')">6</div>
+        <div class="btns" onclick="appendInInput('7')">7</div>
+        <div class="btns" onclick="appendInInput('8')">8</div>
+        <div class="btns" onclick="appendInInput('9')">9</div>
+        <div class="btns" onclick="appendInInput('0')">0</div>
+        <div class="btns" onclick="appendInInput('+')">+</div>
+        <div class="btns" onclick="appendInInput('-')">-</div>
+        <div class="btns" onclick="appendInInput('*')">*</div>
+        <div class="btns" onclick="appendInInput('/')">/</div>
+        <div class="btns" onclick="revertOne()">⌫</div>
+    </div>
+</body>
+</html>

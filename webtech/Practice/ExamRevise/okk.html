@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Basic Calc</title>
+    <script>
+        function calc(operator) {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let result;
+            if(operator === '+') {
+                result = num1 + num2;
+            } else if(operator === '-') {
+                result = num1 - num2;
+            } else if(operator === '*') {
+                result = num1 * num2;
+            } else if(operator === '/') {
+                result = num1 / num2;
+            }
+            document.getElementById("result").innerText = "Result: " + result;
+        }
+        
+        function clearCalc() {
+            console.log("object");
+            document.getElementById("num1").value = '';
+            document.getElementById("num2").value = '';
+            document.getElementById("result").innerText = '';
+        }
+
+        function append(value) {
+            document.getElementById("num1").value = value;
+        }
+    </script>
+</head>
+<body>
+    <input type="number" id="num1" placeholder="First Number">
+    <input type="number" id="num2" placeholder="Second Number">
+    <div id="result"></div>
+    <button onclick="append('1')">1</button>
+    <button onclick="calc('+')">Add</button>
+    <button onclick="calc('-')">Subtract</button>
+    <button onclick="calc('*')">Mul</button>
+    <button onclick="calc('/')">Div</button>
+    <button onclick="clearCalc()">Clear</button>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: 100px 100px 100px; /* 3 equal columns */
+      grid-template-rows: 100px 100px;          /* 2 equal rows */
+      gap: 5px; /* space between cells */
+      border: 2px solid black;
+    }
+    .container div {
+      background: lightblue;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    /* Item spanning multiple columns */
+    .item1 {
+      grid-column-start: 1;
+      grid-column-end: 3; /* spans column 1 to 2 */
+      background: lightgreen;
+    }
+
+    /* Item using shorthand */
+    .item2 {
+      grid-column: 2 / 4; /* starts at col 2, ends at col 3 */
+      background: lightcoral;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="item1">Item 1</div>
+    <div class="item2">Item 2</div>
+    <div>Item 3</div>
+    <div>Item 4</div>
+  </div>
+</body>
+</html>

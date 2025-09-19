@@ -35,12 +35,15 @@ int getLength(Node* head) {
 }
 
 void printInPattern(Node* head) {
-    if (!head) return;
     int n = getLength(head);
-
+    if (n < 3) {
+        cout << "Not enough nodes for pattern!" << endl;
+        return;
+    }
     Node* temp = head;
     for (int i = 0; i < n; i++) {
-        cout << temp->data << " " << temp->next->data << " " << temp->next->next->data << " , ";
+        cout << temp->data << " " << temp->next->data << " " << temp->next->next->data;
+        if (i != n - 1) cout << " , ";
         temp = temp->next;
     }
     cout << endl;
@@ -52,11 +55,16 @@ int main() {
     Node* n3 = new Node(3);
     Node* n4 = new Node(7);
 
-    // Linking forward
-    head->next = n2; n2->next = n3; n3->next = n4; n4->next = head;
-    // Linking backward
-    head->prev = n4; n2->prev = head; n3->prev = n2; n4->prev = n3;
+    head->next = n2; n2->prev = head;
+    n2->next = n3; n3->prev = n2;
+    n3->next = n4; n4->prev = n3;
+    n4->next = head; head->prev = n4;
 
-    printInPattern(head);  // pattern output
-    printLL(head);         // full circular LL
+    cout << "Pattern Output:" << endl;
+    printInPattern(head);
+
+    cout << "Full Circular List:" << endl;
+    printLL(head);
+
+    return 0;
 }

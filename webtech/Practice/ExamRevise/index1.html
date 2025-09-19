@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function validate() {
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const password = document.getElementById("password").value;
+
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const phoneRegex = /^\d{10}$/; // Assuming a 10-digit phone number
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Minimum 8 characters, at least one letter and one number
+
+            if(emailRegex.test(email)) {
+                console.log("Valid Email");
+            } else {
+                console.log("Invalid Email");
+            }
+
+            if(phoneRegex.test(phone)) {
+                console.log("Valid Phone Number");
+            } else {
+                console.log("Invalid Phone Number");
+            }
+
+            if(passwordRegex.test(password)) {
+                console.log("Valid Password");
+            } else {
+                console.log("Invalid Password");
+            }
+        }
+    </script>
+</head>
+<body>
+    make a regex to verify email phone number and password
+    <br>
+    email: <input type="text" id="email"><br>
+    phone: <input type="text" id="phone"><br>
+    password: <input type="text" id="password"><br>
+    <button onclick="validate()">Validate</button>
+</body>
+</html>

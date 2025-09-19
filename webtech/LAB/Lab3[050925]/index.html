@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe Layout (No Grid Areas)</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 60px 1fr 40px;   /* header, content, footer */
+            grid-template-columns: 20% 60% 20%;  /* left, main, right */
+        }
+
+        header {
+            grid-column: 1 / 4; /* span all 3 columns */
+            grid-row: 1;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        footer {
+            grid-column: 1 / 4; /* span all 3 columns */
+            grid-row: 3;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Position each iframe */
+        .sidebar {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .main {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .right {
+        grid-column: 3;
+        grid-row: 2;
+        }
+    </style>
+</head>
+<body>
+    <header>My Iframe Layout</header>
+    <iframe src="menu.html" name="menuFrame" class="sidebar"></iframe>
+    <iframe src="welcome.html" name="contentFrame" class="main"></iframe>
+    <iframe src="extra.html" name="extraFrame" class="right"></iframe>
+    <footer>© 2025 My Website | Iframes</footer>
+</body>
+</html>
