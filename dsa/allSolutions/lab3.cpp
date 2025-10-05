@@ -1,83 +1,65 @@
+// Problem Statement
+// Declare a 2-dimensional array, arr, with n empty arrays, all zero-indexed.
+// Declare an integer, lastAnswer, and initialize it to 0.
+// You need to process two types of queries:
+
+// 1. Query: 1 x y
+// Compute idx = (x ⊕ lastAnswer) % n.
+// Append the integer y to arr[idx].
+
+// 2. Query: 2 x y
+// Compute idx = (x ⊕ lastAnswer) % n.
+// Set lastAnswer = arr[idx][y % size(arr[idx])].
+// Store the new value of lastAnswer in an answers array.
+
+// Notes:
+// ⊕ is the bitwise XOR operation (^ in most languages).
+// % is the modulo operator.
+// size(arr[idx]) is the number of elements in arr[idx].
+
 #include<bits/stdc++.h>
 using namespace std;
 
-// Function to count occurrences of queries in strList
-vector<int> noOfStr(vector<string> strList, vector<string> queries) {
-    unordered_map<string,int> freq;
 
-    // Build frequency map
-    for(auto &str : strList) {
-        freq[str]++;
+int longestSubstring(string s) {
+    vector<int> lastIndex(256, -1); // store last seen index of each char
+    int left = 0, maxLen = 0;
+
+    for (int right = 0; right < s.size(); right++) {
+        char c = s[right];
+        
+        // If this character appeared before and is inside the window
+        if (lastIndex[c] >= left) {
+            left = lastIndex[c] + 1; // move left pointer after last occurrence
+        }
+        
+        lastIndex[c] = right; // update last seen index
+        maxLen = max(maxLen, right - left + 1);
     }
 
-    // Answer queries
-    vector<int> result;
-    for(auto &q : queries) {
-        result.push_back(freq[q]); // if q not found, returns 0
-    }
-
-    return result;
+    return maxLen;
 }
 
 
 
-// hackerRank problem array manuplation
-int arrayManipulation(int n, vector<vector<int>> manipulations) {
-    vector<long long> arr(n + 2, 0);  // long long to avoid overflow
+long arrayManipulation(int n, vector<vector<int>> queries) {
+    vector<long> arr(n + 2, 0); // difference array
 
-    for (auto m : manipulations) {
-        int startIdx = m[0];
-        int endIdx = m[1];
-        int val = m[2];
-
-        arr[startIdx] += val;     // add value at start
-        arr[endIdx + 1] -= val;   // subtract value after end
+    // Step 1: mark ranges
+    for (auto q : queries) {
+        int a = q[0];
+        int b = q[1];
+        int k = q[2];
+        arr[a] += k;
+        arr[b + 1] -= k;
     }
 
-    // Build prefix sum and track maximum
-    long long maxVal = 0, curr = 0;
+    // Step 2: prefix sum and find max
+    long maxVal = 0, curr = 0;
     for (int i = 1; i <= n; i++) {
-        curr += arr[i];   // prefix sum
+        curr += arr[i];
         maxVal = max(maxVal, curr);
     }
 
-    return (int)maxVal;
-}
-
-
-// longest substring without repeating chracters
-vector<string>allSubStr(string s){
-    unordered_map<char,int>freq;
-    vector<string>ans;
-    for(int i=0; i<s.size(); i++){
-        string sub = "";
-        for(int j=i; j<s.size() ;j++){
-            freq[s[j]]++;
-            if(freq[s[j]] > 1) break;
-            sub += s[j];
-            ans.push_back(sub);
-        }
-    }
-    return ans;
-}
-
-int main(){
-    string s = "abcda";
-    vector<string>ans = allSubStr(s);
-    for(auto s : ans) cout<<s<<" ";
-}
-
-int main1() {
-    vector<string> strList = {"ab", "ab", "abc"};
-    vector<string> queries = {"ab", "abc", "bc"};
-
-    vector<int> ans = noOfStr(strList, queries);
-
-    // Print results
-    for(int x : ans) {
-        cout << x << " ";
-    }
-    cout << endl;
-
-    return 0;
+    return maxVal;
 }
