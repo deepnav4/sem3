@@ -1,0 +1,228 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Navdeep Singh}
+\lhead{OOP Assignment 7}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+\pagestyle{fancy}
+\fancyfoot[C]{\textcolor[gray]{0.7}{Roll No: 24124073}} % faint footer
+
+\begin{document}
+
+% ---------- Custom Title Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \bfseries Object Oriented Programming Lab \par}
+    \vspace{0.5cm}
+    {\LARGE \bfseries Assignment 7 \par}
+    \vspace{2.5cm}
+    {\Large Submitted by: \par}
+    \vspace{0.3cm}
+    {\large \textbf{Navdeep Singh} \par}
+    \vspace{0.3cm}
+    {\large \textbf{30th September 2025} \par}
+    \vspace{0.3cm}
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year
+    \vfill
+\end{titlepage}
+
+
+% ---------- Start of Questions ----------
+% Paste your \section*{1. ...}, \subsection*{Code}, etc. from here onward
+
+
+
+%----------------------------------------
+  
+%----------------------------------------
+\section*{Q1. Bank System with BankAccount and Auditor Classes}
+
+\textbf{Problem Statement:}
+
+Build a system for a bank. There are two classes involved:
+
+\begin{itemize}
+    \item \textbf{BankAccount} – This class stores private information such as the account holder’s name and account balance.
+    \item \textbf{Auditor} – This class represents an external auditor. It needs to check the balance of different accounts for auditing purposes, but should not be a member of the \texttt{BankAccount} class.
+\end{itemize}
+
+Write a C++ program that:
+
+\begin{enumerate}
+    \item Defines a class \texttt{BankAccount} with \textbf{private} data members: \texttt{accountHolder} and \texttt{balance}.
+    \item Defines a class \texttt{Auditor} with a member function called \texttt{auditAccount()} that checks the balance of a \texttt{BankAccount}.
+    \item Declares the Auditor’s member function \texttt{auditAccount()} as a \textbf{friend} inside the \texttt{BankAccount} class.
+    \item Supports multiple bank accounts with meaningful account names and balances.
+    \item Includes clear and well-formatted output to simulate the auditing process.
+\end{enumerate}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include <bits/stdc++.h>
+using namespace std;
+
+// Forward declaration
+class Auditor;
+
+class BankAccount {
+private:
+    string accountHolder;
+    double balance;
+
+public:
+    BankAccount(string name, double bal) {
+        accountHolder = name;
+        balance = bal;
+    }
+
+    friend void Auditor::auditAccount(BankAccount &acc);
+};
+
+class Auditor {
+public:
+    void auditAccount(BankAccount &acc) {
+        cout << "Auditing account of " << acc.accountHolder << endl;
+        cout << "Current Balance: $" << acc.balance << endl << endl;
+    }
+};
+
+int main() {
+    BankAccount acc1("Navdeep Singh", 5000);
+    BankAccount acc2("Rishi Kumar", 7500);
+    BankAccount acc3("Anita Sharma", 12000);
+
+    auditor.auditAccount(acc1);
+    auditor.auditAccount(acc2);
+    auditor.auditAccount(acc3);
+
+    return 0;
+}
+
+
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Auditing account of Navdeep Singh
+Current Balance: $5000
+
+Auditing account of Rishi Kumar
+Current Balance: $7500
+
+Auditing account of Anita Sharma
+Current Balance: $12000
+\end{lstlisting}
+
+
+\section*{Q2. Product Class with Operator Overloading}
+
+\textbf{Problem Statement:}
+
+Write a C++ program that:
+
+\begin{itemize}
+    \item Defines a class \texttt{Product} with members for \texttt{name}, \texttt{price per unit}, and \texttt{quantity}.
+    \item Overloads the \texttt{+} operator to add two \texttt{Product} objects only if their \texttt{name} matches.
+    \item Displays the result in a user-friendly format.
+    \item If the products do not match, print a message indicating they cannot be added.
+\end{itemize}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Product {
+private:
+    string name;
+    double price;
+    int quantity;
+
+public:
+    Product(string n, double p, int q) {
+        name = n;
+        price = p;
+        quantity = q;
+    }
+
+    // Overload + operator
+    Product operator+(const Product &p) {
+        if (name == p.name) {
+            return Product(name, price, quantity + p.quantity);
+        } else {
+            cout << "Products cannot be added as names do not match!" << endl;
+            return Product("", 0, 0); // Return empty product
+        }
+    }
+
+    void display() {
+        if (name != "")
+            cout << "Product: " << name << ", Price per unit: $" << price
+                 << ", Quantity: " << quantity << endl;
+    }
+};
+
+int main() {
+    Product p1("Laptop", 1000, 5);
+    Product p2("Laptop", 1000, 3);
+    Product p3("Phone", 500, 2);
+
+    cout << "Adding two matching products:\n";
+    Product p4 = p1 + p2;
+    p4.display();
+
+    cout << "\nTrying to add two different products:\n";
+    Product p5 = p1 + p3;
+    p5.display(); // Will show nothing as addition failed
+
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Adding two matching products:
+Product: Laptop, Price per unit: $1000, Quantity: 8
+
+Trying to add two different products:
+Products cannot be added as names do not match!
+
+\end{lstlisting}
+\end{document}

@@ -40,7 +40,7 @@ int main() {
 }
 
 
-
+// lb 6
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -137,3 +137,32 @@ int main() {
     }
     return 0;
 }
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> out;
+    int x;
+    while (cin >> x) out.push_back(x);
+    int n = out.size();
+
+    for (int sz = 1; sz <= n / 3; ++sz) {
+        vector<int> cand(out.begin(), out.begin() + sz);
+        // Simulate output
+        bool ok = true;
+        for (int i = 0; i + 2 < n; ++i)
+            if (out[i] != cand[(i % sz)])
+                ok = false;
+        if (ok) {
+            cout << sz << endl;
+            for (int v : cand) cout << v << " ";
+            cout << endl;
+            break;
+        }
+    }
+    return 0;
+}
+
