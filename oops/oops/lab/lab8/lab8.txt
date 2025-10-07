@@ -1,0 +1,178 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Navdeep Singh}
+\lhead{OOP Assignment 8}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+\pagestyle{fancy}
+\fancyfoot[C]{\textcolor[gray]{0.7}{Roll No: 24124073}} % faint footer
+
+\begin{document}
+
+% ---------- Custom Title Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \bfseries Object Oriented Programming Lab \par}
+    \vspace{0.5cm}
+    {\LARGE \bfseries Assignment 8 \par}
+    \vspace{2.5cm}
+    {\Large Submitted by: \par}
+    \vspace{0.3cm}
+    {\large \textbf{Navdeep Singh} \par}
+    \vspace{0.3cm}
+    {\large \textbf{7th October 2025} \par}
+    \vspace{0.3cm}
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year
+    \vfill
+\end{titlepage}
+
+
+% ---------- Start of Questions ----------
+% Paste your \section*{1. ...}, \subsection*{Code}, etc. from here onward
+
+
+
+%----------------------------------------
+  
+%----------------------------------------
+\section*{Q1. Program to Overload Uniary Operator}
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include<bits/stdc++.h>
+using namespace std;
+
+class Number{
+    int x;
+    public:
+    Number(){}
+    Number(int val){
+        x = val;
+    }
+    Number operator -(){ // unary operator overloading
+        Number temp;
+        temp.x = -x;
+        return temp;
+    }
+    void display(){
+        cout<<x<<endl;
+    }
+    friend ostream& operator<<(ostream& os, const Number& n);
+    friend istream& operator>>(istream& is, Number& n);
+};
+
+
+ostream& operator<<(ostream& os, const Number& n) {
+    os << n.x;
+    return os;
+}
+
+istream& operator>>(istream& is, Number& n) {
+    is >> n.x;
+    return is;
+}
+
+int main(){
+    Number n1(5),n2;
+    n2 = -n1; // unary operator   not using n1.x = -n2.x 
+    cout<<n1<<endl; // using friend function
+    cout<<n2<<endl; // using friend function
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+5
+-5
+\end{lstlisting}
+
+
+\section*{Q2. Program to show Hybrid Inheritance }
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class A{
+    public:
+    void showA(){
+        cout<<"Class A"<<endl;
+    }
+};
+
+class B:public A{
+    public:
+    void showB(){
+        cout<<"Class B"<<endl;
+    }
+};
+
+class C: public A{
+    public:
+    void showC(){
+        cout<<"Class C"<<endl;
+    }
+};
+
+class D:public B,public C{
+    public:
+    void showD(){
+        cout<<"Class D"<<endl;
+    }
+};
+
+int main(){
+    D obj;
+    // obj.showA(); // ambiguity error
+    obj.B::showA(); // to resolve ambiguity
+    obj.C::showA(); // to resolve ambiguity
+    obj.showB();
+    obj.showC();
+    obj.showD();
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Class A
+Class A
+Class B
+Class C
+Class D
+\end{lstlisting}
+\end{document}

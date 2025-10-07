@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.csv": "bat",
+        "iosfwd": "cpp"
+    }
+}
