@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Clock</title>
+  <style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: #111;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    #digital-clock {
+        font-size: 60px;
+        color: #00ff00;
+        background-color: #000;
+        padding: 20px 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 255, 0, 0.3);
+        letter-spacing: 4px;
+    }
+
+    /* Optional: style the colons */
+    #digital-clock span.colon {
+        margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="digital-clock">
+    <span id="hour-space"></span><span class="colon">:</span>
+    <span id="minute-space"></span><span class="colon">:</span>
+    <span id="second-space"></span>
+  </div>
+
+  <script>
+    function clockMount() {
+      const now = new Date();
+
+      let hours = now.getHours();
+      let mins = now.getMinutes();
+      let secs = now.getSeconds();
+
+      // Add leading zeros
+      hours = hours < 10 ? '0' + hours : hours;
+      mins = mins < 10 ? '0' + mins : mins;
+      secs = secs < 10 ? '0' + secs : secs;
+
+      document.getElementById('hour-space').innerText = hours;
+      document.getElementById('minute-space').innerText = mins;
+      document.getElementById('second-space').innerText = secs;
+    }
+
+    setInterval(clockMount, 1000);
+    clockMount(); // call immediately to avoid 1s delay
+  </script>
+</body>
+</html>

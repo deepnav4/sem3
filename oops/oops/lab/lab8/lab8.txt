@@ -8,6 +8,7 @@
 \usepackage{parskip}
 \usepackage{setspace}
 \usepackage{amsmath}
+\usepackage{tcolorbox} % for code boxes
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -18,10 +19,9 @@
 \titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
 
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{cpp}{
-    backgroundcolor=\color{backcolour},
+    backgroundcolor=\color{white},
     commentstyle=\color{codegray},
     keywordstyle=\color{blue},
     numberstyle=\tiny\color{gray},
@@ -29,48 +29,44 @@
     basicstyle=\ttfamily\footnotesize,
     breaklines=true,
     numbers=left,
-    numbersep=5pt,
+    numbersep=10pt,       % space between number and code
+    xleftmargin=15pt,     % left margin so numbers don't overlap box
     showstringspaces=false,
     tabsize=2,
     language=C++
 }
-\pagestyle{fancy}
-\fancyfoot[C]{\textcolor[gray]{0.7}{Roll No: 24124073}} % faint footer
+
+
+\tcbset{
+    colback=white,
+    colframe=black,
+    left=1mm,
+    right=1mm,
+    top=1mm,
+    bottom=1mm,
+    boxsep=1mm,
+    arc=1mm
+}
 
 \begin{document}
 
-% ---------- Custom Title Page ----------
-\begin{titlepage}
-    \centering
-    \vspace*{2.5cm}
-    {\Huge \bfseries Object Oriented Programming Lab \par}
-    \vspace{0.5cm}
-    {\LARGE \bfseries Assignment 8 \par}
-    \vspace{2.5cm}
-    {\Large Submitted by: \par}
-    \vspace{0.3cm}
-    {\large \textbf{Navdeep Singh} \par}
-    \vspace{0.3cm}
-    {\large \textbf{7th October 2025} \par}
-    \vspace{0.3cm}
+% Assignment Header
+\begin{center}
+    {\LARGE \bfseries Assignment 8: [Assignment Name]} \\
+    \vspace{0.2cm}
+    {\large Submitted by: Navdeep Singh} \\
     Roll No: 24124073 \\
     Group: 3 \\
     Branch: Information Technology \\
     Year: 2nd Year
-    \vfill
-\end{titlepage}
+\end{center}
 
-
-% ---------- Start of Questions ----------
-% Paste your \section*{1. ...}, \subsection*{Code}, etc. from here onward
-
-
+\vspace{0.5cm} % small space before questions
 
 %----------------------------------------
-  
-%----------------------------------------
-\section*{Q1. Program to Overload Uniary Operator}
+\section*{Q1. Program to Overload Unary Operator}
 \subsection*{Code}
+\begin{tcolorbox}
 \begin{lstlisting}[style=cpp]
 #include<bits/stdc++.h>
 using namespace std;
@@ -94,7 +90,6 @@ class Number{
     friend istream& operator>>(istream& is, Number& n);
 };
 
-
 ostream& operator<<(ostream& os, const Number& n) {
     os << n.x;
     return os;
@@ -107,24 +102,26 @@ istream& operator>>(istream& is, Number& n) {
 
 int main(){
     Number n1(5),n2;
-    n2 = -n1; // unary operator   not using n1.x = -n2.x 
-    cout<<n1<<endl; // using friend function
-    cout<<n2<<endl; // using friend function
+    n2 = -n1; // unary operator
+    cout<<n1<<endl;
+    cout<<n2<<endl;
     return 0;
 }
-
 \end{lstlisting}
+\end{tcolorbox}
 
 \subsection*{Sample Output}
+\begin{tcolorbox}
 \begin{lstlisting}[style=cpp]
 5
 -5
 \end{lstlisting}
+\end{tcolorbox}
 
-
-\section*{Q2. Program to show Hybrid Inheritance }
-
+%----------------------------------------
+\section*{Q2. Program to show Hybrid Inheritance}
 \subsection*{Code}
+\begin{tcolorbox}
 \begin{lstlisting}[style=cpp]
 class A{
     public:
@@ -156,18 +153,18 @@ class D:public B,public C{
 
 int main(){
     D obj;
-    // obj.showA(); // ambiguity error
-    obj.B::showA(); // to resolve ambiguity
-    obj.C::showA(); // to resolve ambiguity
+    obj.B::showA(); // resolve ambiguity
+    obj.C::showA(); // resolve ambiguity
     obj.showB();
     obj.showC();
     obj.showD();
     return 0;
 }
-
 \end{lstlisting}
+\end{tcolorbox}
 
 \subsection*{Sample Output}
+\begin{tcolorbox}
 \begin{lstlisting}[style=cpp]
 Class A
 Class A
@@ -175,4 +172,6 @@ Class B
 Class C
 Class D
 \end{lstlisting}
+\end{tcolorbox}
+
 \end{document}
