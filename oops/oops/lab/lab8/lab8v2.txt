@@ -1,0 +1,326 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Navdeep Singh}
+\lhead{OOP Assignment 8}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+
+\begin{document}
+
+% ---------- Custom Title Page ----------
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \bfseries Object Oriented Programming Lab \par}
+    \vspace{0.5cm}
+    {\LARGE \bfseries Assignment 8 \par}
+    \vspace{2.5cm}
+    {\Large Submitted by: \par}
+    \vspace{0.3cm}
+    {\large \textbf{Navdeep Singh} \par}
+    \vspace{0.3cm}
+    {\large \textbf{15th October 2025} \par}
+    \vspace{0.3cm}
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year
+    \vfill
+\end{titlepage}
+
+% ---------- Start of Questions ----------
+
+\section*{Q1. Program to add two numbers from different classes using friend function}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include<bits/stdc++.h>
+using namespace std;
+
+class B;
+
+class A {
+public:
+    int a;
+    A(int val) { a = val; }
+    friend int add(A, B);
+};
+
+class B {
+public:
+    int b;
+    B(int val) { b = val; }
+    friend int add(A, B);
+};
+
+int add(A obj1, B obj2) {
+    return (obj1.a + obj2.b);
+}
+
+int main(){
+    A a(10);
+    B b(20);
+    cout << "Sum = " << add(a, b);
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Sum = 30
+\end{lstlisting}
+
+\section*{Q2. Increment salary of employee using friend class}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Employee{
+    int salary;
+public:
+    Employee(int sal){ salary = sal; }
+    friend class Manager;
+};
+
+class Manager{
+public:
+    void incrementSalary(Employee &emp){ emp.salary += 1000; }
+    void display(Employee &emp){ cout << emp.salary; }
+};
+
+int main(){
+    Employee emp(5000);
+    Manager mgr;
+    mgr.incrementSalary(emp);
+    mgr.display(emp);
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+6000
+\end{lstlisting}
+
+\section*{Q3. Calculate area of cuboid and convert it into a cube using friend class}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Cube;
+
+class Cuboid {
+    float length, breadth, height;
+public:
+    Cuboid(float l, float b, float h) { length = l; breadth = b; height = h; }
+    float area() { return 2 * (length*breadth + breadth*height + height*length); }
+    friend class Cube;
+};
+
+class Cube {
+    float side;
+public:
+    void convert(Cuboid c) {
+        float volume = c.length * c.breadth * c.height;
+        side = cbrt(volume);
+    }
+    void display() {
+        cout << "Converted Cube side: " << side << endl;
+        cout << "Surface Area of Cube: " << 6*side*side << endl;
+    }
+};
+
+int main(){
+    float l, b, h;
+    cout << "Enter length, breadth and height of cuboid: ";
+    cin >> l >> b >> h;
+    Cuboid cuboid(l, b, h);
+    cout << "\nSurface Area of Cuboid: " << cuboid.area() << endl;
+    Cube cube;
+    cube.convert(cuboid);
+    cube.display();
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter length, breadth and height of cuboid: 2 3 4
+Surface Area of Cuboid: 52
+Converted Cube side: 2.8845
+Surface Area of Cube: 49.7876
+\end{lstlisting}
+
+\section*{Q4. Overloaded constructor to dynamically allocate array and find largest element}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Array {
+    int *arr;   
+    int size;
+public:
+    Array(int s) {
+        size = s;
+        arr = new int[size];  
+        cout << "Enter " << size << " elements: ";
+        for (int i = 0; i < size; i++) cin >> arr[i];
+    }
+    int findLargest() {
+        int largest = arr[0];
+        for (int i = 1; i < size; i++)
+            if (arr[i] > largest) largest = arr[i];
+        return largest;
+    }
+    ~Array() { delete[] arr; }
+};
+
+int main(){
+    int n;
+    cout << "Enter size of array: ";
+    cin >> n;
+    Array a(n); 
+    cout << "Largest element in the array: " << a.findLargest() << endl;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter size of array: 5
+Enter 5 elements: 10 20 5 8 15
+Largest element in the array: 20
+\end{lstlisting}
+
+\section*{Q5. Class to store string and count uppercase, vowels, and characters}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class String{
+    string s;
+public:
+    String(string s){ this->s = s; }
+    int countVowels() {
+        int count = 0;
+        for (char c : s) {
+            c = tolower(c);
+            if (c=='a'||c=='e'||c=='i'||c=='o'||c=='u') count++;
+        }
+        return count;
+    }
+    int countUppercase() {
+        int count = 0;
+        for (char c : s) if (isupper(c)) count++;
+        return count;
+    }
+    int countCharacters() {
+        int count = 0;
+        for (char c : s) if (!isspace(c)) count++;
+        return count;
+    }
+};
+
+int main(){
+    String s("Navdeep Singh");
+    cout << s.countCharacters() << endl;
+    cout << s.countUppercase() << endl;
+    cout << s.countVowels() << endl;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+12
+2
+3
+\end{lstlisting}
+
+\section*{Q6. Dynamically allocate two matrices, add them, display result and free memory}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int r, c;
+    cout << "Enter number of rows and columns: ";
+    cin >> r >> c;
+
+    int **mat1 = new int*[r];
+    int **mat2 = new int*[r];
+    int **sum = new int*[r];
+
+    for (int i=0;i<r;i++){
+        mat1[i] = new int[c];
+        mat2[i] = new int[c];
+        sum[i] = new int[c];
+    }
+
+    cout << "Enter elements of first matrix: ";
+    for(int i=0;i<r;i++)
+        for(int j=0;j<c;j++) cin >> mat1[i][j];
+
+    cout << "Enter elements of second matrix: ";
+    for(int i=0;i<r;i++)
+        for(int j=0;j<c;j++) cin >> mat2[i][j];
+
+    for(int i=0;i<r;i++)
+        for(int j=0;j<c;j++) sum[i][j] = mat1[i][j] + mat2[i][j];
+
+    cout << "Resultant Matrix:\n";
+    for(int i=0;i<r;i++){
+        for(int j=0;j<c;j++) cout << sum[i][j] << " ";
+        cout << endl;
+    }
+
+    for(int i=0;i<r;i++){
+        delete[] mat1[i];
+        delete[] mat2[i];
+        delete[] sum[i];
+    }
+    delete[] mat1;
+    delete[] mat2;
+    delete[] sum;
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Enter number of rows and columns: 2 2
+Enter elements of first matrix: 1 2 3 4
+Enter elements of second matrix: 5 6 7 8
+Resultant Matrix:
+6 8
+10 12
+\end{lstlisting}
+
+\end{document}
