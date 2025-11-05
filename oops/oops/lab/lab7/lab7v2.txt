@@ -1,0 +1,287 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+% Remove extra gaps
+\raggedbottom
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Navdeep Singh}
+\lhead{OOP Assignment 7}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=10pt,
+    xleftmargin=15pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \bfseries Assignment 7} \\
+    \vspace{0.1cm}
+    {\large Submitted by: Navdeep Singh} \\
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year \\
+    Date : 30 September 2025
+\end{center}
+
+%----------------------------------------
+\section*{Q1. Build a system for a bank. There are two classes involved:}
+\textbf{BankAccount –} This class stores private information such as the account holder’s name and account balance.\\
+\textbf{Auditor –} This class represents an external auditor. It needs to check the balance of different accounts for auditing purposes, but should not be a member of the BankAccount class.
+
+Write a C++ program that:
+\begin{enumerate}
+    \item Defines a class BankAccount with private data members: accountHolder and balance.
+    \item Defines a class Auditor with a member function called auditAccount() that checks the balance of a BankAccount.
+    \item Declares the Auditor’s member function auditAccount() as a friend inside the BankAccount class.
+    \item Supports multiple bank accounts with meaningful account names and balances.
+    \item Includes clear and well-formatted output to simulate the auditing process.
+\end{enumerate}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include <bits/stdc++.h>
+using namespace std;
+
+class Auditor; // forward declaration
+
+class BankAccount {
+    string accountHolder;
+    double balance;
+
+public:
+    BankAccount(string name, double bal) {
+        accountHolder = name;
+        balance = bal;
+    }
+
+    friend void auditAccount(const BankAccount&, Auditor&);
+};
+
+class Auditor {
+public:
+    void auditAccount(const BankAccount& acc, Auditor&) {
+        cout << "Auditing Account Holder: " << acc.accountHolder << endl;
+        cout << "Current Balance: $" << acc.balance << endl;
+    }
+};
+
+int main() {
+    BankAccount acc1("John Doe", 2500.75);
+    BankAccount acc2("Alice Smith", 3900.50);
+    BankAccount acc3("Bob Johnson", 1200.00);
+
+    Auditor auditor;
+    auditor.auditAccount(acc1, auditor);
+    auditor.auditAccount(acc2, auditor);
+    auditor.auditAccount(acc3, auditor);
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Auditing Account Holder: John Doe
+Current Balance: $2500.75
+Auditing Account Holder: Alice Smith
+Current Balance: $3900.5
+Auditing Account Holder: Bob Johnson
+Current Balance: $1200
+\end{lstlisting}
+
+%----------------------------------------
+\section*{Q2. Write a C++ program that:}
+\begin{itemize}
+    \item Defines a class Product with members for name, price per unit, and quantity.
+    \item Overloads the + operator to add two Product objects only if their names match.
+    \item Displays the result in a user-friendly format.
+    \item If the products do not match, print a message indicating they can’t be added.
+\end{itemize}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include <bits/stdc++.h>
+using namespace std;
+
+class Product {
+    string name;
+    float price;
+    int quantity;
+
+public:
+    Product(string n, float p, int q) {
+        name = n;
+        price = p;
+        quantity = q;
+    }
+
+    Product operator+(Product &p) {
+        if (name == p.name) {
+            Product temp(name, price, quantity + p.quantity);
+            return temp;
+        } else {
+            cout << "Products can't be added as names don't match!" << endl;
+            return *this;
+        }
+    }
+
+    void display() {
+        cout << "Product: " << name << endl;
+        cout << "Price per unit: " << price << endl;
+        cout << "Quantity: " << quantity << endl;
+    }
+};
+
+int main() {
+    Product p1("Apple", 50.5, 10);
+    Product p2("Apple", 50.5, 5);
+    Product p3 = p1 + p2;
+    p3.display();
+
+    Product p4("Banana", 30.0, 6);
+    Product p5 = p1 + p4;
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Product: Apple
+Price per unit: 50.5
+Quantity: 15
+Products can't be added as names don't match!
+\end{lstlisting}
+
+%----------------------------------------
+\section*{Q3. Program to Overload Unary Operator}
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+#include<bits/stdc++.h>
+using namespace std;
+
+class Number{
+    int x;
+    public:
+    Number(){}
+    Number(int val){
+        x = val;
+    }
+    Number operator -(){ // unary operator overloading
+        Number temp;
+        temp.x = -x;
+        return temp;
+    }
+    void display(){
+        cout<<x<<endl;
+    }
+    friend ostream& operator<<(ostream& os, const Number& n);
+    friend istream& operator>>(istream& is, Number& n);
+};
+
+ostream& operator<<(ostream& os, const Number& n) {
+    os << n.x;
+    return os;
+}
+
+istream& operator>>(istream& is, Number& n) {
+    is >> n.x;
+    return is;
+}
+
+int main(){
+    Number n1(5),n2;
+    n2 = -n1; // unary operator
+    cout<<n1<<endl;
+    cout<<n2<<endl;
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+5
+-5
+\end{lstlisting}
+
+%----------------------------------------
+\section*{Q4. Program to show Hybrid Inheritance}
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class A{
+    public:
+    void showA(){
+        cout<<"Class A"<<endl;
+    }
+};
+
+class B:public A{
+    public:
+    void showB(){
+        cout<<"Class B"<<endl;
+    }
+};
+
+class C: public A{
+    public:
+    void showC(){
+        cout<<"Class C"<<endl;
+    }
+};
+
+class D:public B,public C{
+    public:
+    void showD(){
+        cout<<"Class D"<<endl;
+    }
+};
+
+int main(){
+    D obj;
+    obj.B::showA(); // resolve ambiguity
+    obj.C::showA(); // resolve ambiguity
+    obj.showB();
+    obj.showC();
+    obj.showD();
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Class A
+Class A
+Class B
+Class C
+Class D
+\end{lstlisting}
+
+\end{document}
