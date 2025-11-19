@@ -1,0 +1,356 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Navdeep Singh}
+\lhead{OOP Assignment 9}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+
+\lstdefinestyle{cpp}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numbersep=10pt,
+    xleftmargin=15pt,
+    showstringspaces=false,
+    tabsize=2,
+    language=C++
+}
+
+\setcounter{page}{51} % ---------- Page numbering starts from 44 ----------
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \bfseries Assignment 9} \\
+    \vspace{0.1cm}
+    {\large Submitted by: Navdeep Singh} \\
+    Roll No: 24124073 \\
+    Group: 3 \\
+    Branch: Information Technology \\
+    Year: 2nd Year \\
+    Date: 11 November 2025
+\end{center}
+
+%----------------------------------------
+\section*{Q1.Create a class Car with data members brand and model. Define a method display()
+to show the values. Declare an object of Car and a pointer pointing to it. Access the
+object’s members using the pointer.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Car {
+public:
+    string brand;
+    string model;
+
+    Car(string brand, string model) {
+        this->brand = brand;
+        this->model = model;
+    }
+
+    void display() {
+        cout << "Brand: " << brand << endl;
+        cout << "Model: " << model << endl;
+    }
+};
+
+int main1() {
+    Car *c1 = new Car("Honda", "Civic");
+    c1->display();
+    delete c1;
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Brand: Honda
+Model: Civic
+\end{lstlisting}
+
+%----------------------------------------
+\section*{Q2.Define a class Rectangle with members length and breadth. Create a function that
+accepts a pointer to a Rectangle object and calculates the area. Call this function
+using a pointer to a Rectangle object.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Rectangle {
+public:
+    float length;
+    float breadth;
+
+    Rectangle(float length, float breadth) {
+        this->length = length;
+        this->breadth = breadth;
+    }
+
+    float area() {
+        return length * breadth;
+    }
+};
+
+float calcArea(Rectangle *r) {
+    return r->length * r->breadth;
+}
+
+int main2() {
+    Rectangle *r1 = new Rectangle(5.0, 3.0);
+    cout << "Area: " << calcArea(r1) << endl;
+    delete r1;
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Area: 15
+\end{lstlisting}
+\section*{Q3.Define a class Employee with members name and salary. Create three objects of
+Employee and store their addresses in an array of pointers. Use the pointers to call
+member functions and display details.}
+
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Employee {
+public:
+    string name;
+    float salary;
+
+    Employee(string name, float salary) {
+        this->name = name;
+        this->salary = salary;
+    }
+
+    void display() {
+        cout << "Name: " << name << " | Salary: " << salary << endl;
+    }
+};
+
+int main3() {
+    vector<Employee*> e;
+    e.push_back(new Employee("A", 24000));
+    e.push_back(new Employee("B", 23000));
+    e.push_back(new Employee("C", 22000));
+
+    for (auto emp : e)
+        emp->display();
+
+    for (auto emp : e)
+        delete emp;
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Name: A | Salary: 24000
+Name: B | Salary: 23000
+Name: C | Salary: 22000
+\end{lstlisting}
+\section*{Q4.Create a class Circle with a radius member and a method to compare the radius of
+two circles. Pass a pointer to another object as an argument to the method and
+compare the radius.}
+
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Circle {
+    public:
+        float radius;
+
+        Circle(float radius) {
+            this->radius = radius;
+        }
+
+        void compare(Circle *c2) {
+            if (this->radius > c2->radius)
+                cout << "This circle is larger." << endl;
+            else if (this->radius < c2->radius)
+                cout << "Passed circle is larger." << endl;
+            else
+                cout << "Both circles have equal radius." << endl;
+        }
+};
+
+int main4() {
+    Circle c1(5.5);
+    Circle c2(7.2);
+    c1.compare(&c2);
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Passed circle is larger.
+\end{lstlisting}
+\section*{Q5.Define a class Student with a method display(). Declare a constant object and a
+pointer to that object. Call the method using the pointer.}
+
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Student {
+    public:
+        string name;
+
+        Student(string name) {
+            this->name = name;
+        }
+
+        void display() const {
+            cout << "Student Name: " << name << endl;
+        }
+};
+
+int main5() {
+    const Student s1("Navdeep");
+    const Student *ptr = &s1;
+    ptr->display();
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Student Name: Navdeep
+\end{lstlisting}
+\section*{Q6.Create a class Counter with a private integer variable. Define a function outside
+the class that increments the counter by accessing it through a pointer. Call the
+function from main().}
+
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Counter {
+    private:
+        int count;
+    public:
+        Counter(int count = 0) {
+            this->count = count;
+        }
+        void show() { cout << "Count: " << count << endl; }
+        friend void increment(Counter *c);
+};
+
+void increment(Counter *c) {
+    c->count++;
+}
+
+int main6() {
+    Counter c1(5);
+    increment(&c1);
+    c1.show();
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Count: 6
+\end{lstlisting}
+\section*{Q7.Define a class Point with x and y coordinates. Create a method that takes a pointer
+to another Point object and calculates the distance between the two points.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Point {
+    public:
+        float x, y;
+        Point(float x, float y) {
+            this->x = x;
+            this->y = y;
+        }
+
+        float distance(Point *p2) {
+            return sqrt(pow(p2->x - x, 2) + pow(p2->y - y, 2));
+        }
+};
+
+int main7() {
+    Point p1(2, 3);
+    Point p2(5, 7);
+    cout << "Distance: " << p1.distance(&p2) << endl;
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Distance: 5
+\end{lstlisting}
+\section*{Q8.Create a class Item with members id and price. Define three objects and store their
+addresses in a pointer array. Use a loop to assign and display values through the
+pointer array.}
+
+\subsection*{Code}
+\begin{lstlisting}[style=cpp]
+class Item {
+    public:
+        int id;
+        float price;
+
+        Item(int id = 0, float price = 0.0) {
+            this->id = id;
+            this->price = price;
+        }
+
+        void display() {
+            cout << "ID: " << id << " | Price: " << price << endl;
+        }
+};
+
+int main8() {
+    Item *items[3];
+    items[0] = new Item(101, 50.5);
+    items[1] = new Item(102, 70.2);
+    items[2] = new Item(103, 99.9);
+
+    cout << "Item Details:" << endl;
+    for (int i = 0; i < 3; i++)
+        items[i]->display();
+
+    for (int i = 0; i < 3; i++)
+        delete items[i];
+
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsection*{Sample Output}
+\begin{lstlisting}[style=cpp]
+Item Details:
+ID: 101 | Price: 50.5
+ID: 102 | Price: 70.2
+ID: 103 | Price: 99.9
+\end{lstlisting}
+
+\end{document}
