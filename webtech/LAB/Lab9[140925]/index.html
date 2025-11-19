@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Analog Clock With Alarm</title>
+        <style>
+        body {
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            background-color: bisque;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+        h1 {
+            margin-bottom: 30px;
+            color: black;
+        }
+        .clock {
+            width: 350px;
+            height: 350px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            border: 3px solid #000;
+            position: relative;
+            margin-bottom: 50px;
+        }
+        .center-dot {
+            width: 15px;
+            height: 15px;
+            background-color: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 12;
+        }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: rotate(0deg);
+            background: #fff;
+        }
+        .hour {
+            width: 4px;
+            height: 28%;
+            background-color: #000;
+            z-index: 9;
+            border-radius: 3px;
+        }
+        .minute {
+            width: 5px;
+            height: 38%;
+            background-color: #000;
+            z-index: 10;
+            border-radius: 3px;
+        }
+        .second {
+            width: 2px;
+            height: 42%;
+            background-color: #000;
+            border-radius: 3px;
+            z-index: 11;
+        }
+        .number {
+            position: absolute;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .number-3 { 
+            top: 50%; 
+            right: 15px; 
+            transform: translateY(-50%); 
+        }
+        .number-6 { 
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%); 
+        }
+        .number-9 {
+            top: 50%; 
+            left: 15px; 
+            transform: translateY(-50%); 
+        }
+        .number-12 { 
+            top: 15px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+        }
+        #submitBtn{
+            color: black;
+            background-color: #fff;
+            padding: 7px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        #dateInput{
+            border: 1px solid black;
+            outline: none;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Analog Clock</h1>
+    <div class="clock">
+        <div class="center-dot"></div>
+        <div id="hour-hand" class="hand hour"></div>
+        <div id="minute-hand" class="hand minute"></div>
+        <div id="second-hand" class="hand second"></div>
+
+        <div class="number number-3">3</div>
+        <div class="number number-6">6</div>
+        <div class="number number-9">9</div>
+        <div class="number number-12">12</div>
+    </div>
+    <div>
+        <input id="dateInput" type="time" />
+        <button id="submitBtn"> Set Alarm </button>
+    </div>
+
+    <script>
+        const hourHand = document.getElementById('hour-hand');
+        const minuteHand = document.getElementById('minute-hand');
+        const secondHand = document.getElementById('second-hand');
+
+        function updateClock() {
+            console.log("Upadate Clock Function called !!");
+            const now = new Date();
+
+            const hours = now.getHours() % 12; 
+            const minutes = now.getMinutes();   
+            const seconds = now.getSeconds(); 
+
+
+            const secondDeg = seconds * 6;
+            const minuteDeg = minutes * 6 + seconds * 0.1;
+            const hourDeg = hours * 30 + minutes * 0.5;
+
+            hourHand.style.transform = `rotate(${hourDeg}deg)`;
+            minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+            secondHand.style.transform = `rotate(${secondDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+
+        const submitBtn = document.getElementById('submitBtn');
+        const dateInput = document.getElementById('dateInput');
+
+        let alarmHour = null;
+        let alarmMinute = null;
+
+        function setAlarm(){
+            const inputValue = dateInput.value;   
+
+            if (!inputValue) {
+                alert('Enter Value !');
+                return;
+            }
+
+            const [h, m] = inputValue.split(':').map(Number);
+
+            alarmHour = h;
+            alarmMinute = m;
+
+            alert(`Alarm set for ${h}:${m.toString().padStart(2, '0')}`)
+        }
+        
+
+        submitBtn.addEventListener('click',setAlarm);
+        
+        function triggerAlarm(){
+            console.log("SetInterval !!");
+            if (alarmHour !== null && alarmMinute !== null) {
+                const now = new Date();
+
+                if (now.getHours() === alarmHour && now.getMinutes() === alarmMinute && now.getSeconds() === 0) {
+                    console.log("Alarm reach at End point Hours Matched Minutes Matched");
+                    alert("Alarm done")
+                    alarmHour = null;
+                    alarmMinute = null;
+                }
+            }
+        }
+
+
+        setInterval(triggerAlarm,1000);
+        
+    </script>
+
+</body>
+</html>
